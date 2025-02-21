@@ -1,4 +1,7 @@
+import ThumbnailAccordion from "@/app/_components/amazon/accordion/thumbnail";
 import { geistMono } from "@/app/fonts";
+import { AmazonProductResponse } from "@/src/api";
+import api from "@/src/axios/base";
 
 export default async function AsinPage({
   params,
@@ -6,6 +9,11 @@ export default async function AsinPage({
   params: Promise<{ asin: string }>;
 }) {
   const asin = (await params).asin;
+
+  const { data } = (await api.get(`/amazon/${asin}`)) as {
+    data: AmazonProductResponse;
+  };
+  console.log(data);
   return (
     <div>
       <p
@@ -13,6 +21,7 @@ export default async function AsinPage({
       >
         Showing product for ASIN: {asin}
       </p>
+      <ThumbnailAccordion />
     </div>
   );
 }
