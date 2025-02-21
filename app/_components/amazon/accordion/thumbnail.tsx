@@ -11,6 +11,7 @@ import { geistMono, manrope } from "@/app/fonts";
 import { AmazonProductResponse } from "@/src/api";
 import { constructImageUrl } from "@/utils/amazon/construct-image-url";
 import Stars from "../stars/stars";
+import { formatIndian } from "@/utils/amazon/format-number";
 
 interface ThumbnailAccordionProps {
   data: AmazonProductResponse;
@@ -66,7 +67,7 @@ const ThumbnailAccordion = ({ data }: ThumbnailAccordionProps) => {
               </span>
             </span>
             <p className={`text-amazon-red font-semibold text-xl`}>
-              ₹{data.product.price}
+              ₹{formatIndian(data.product.price ?? 0)}
             </p>
             <div className="flex flex-col gap-1">
               <p className="text-sm text-stone-500 font-medium">

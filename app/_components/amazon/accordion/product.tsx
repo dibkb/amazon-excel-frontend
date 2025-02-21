@@ -6,19 +6,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Image from "next/image";
-import { geistMono, manrope } from "@/app/fonts";
+import { geistMono } from "@/app/fonts";
 import { AmazonProductResponse } from "@/src/api";
-import { constructImageUrl } from "@/utils/amazon/construct-image-url";
-
+import Stars from "../stars/stars";
+import { formatIndian } from "@/utils/amazon/format-number";
+import ProductImages from "../carosoul/product-images";
+import Offers from "../offers";
 interface ProductAccordion {
   data: AmazonProductResponse;
 }
 
 const ProductAccordion = ({ data }: ProductAccordion) => {
-  const images = data.product.image;
-  const [thumbnail, setThumbnail] = React.useState<string>(images?.[0] ?? "");
-  console.log(images);
   return (
     <Accordion
       type="single"
@@ -28,63 +26,58 @@ const ProductAccordion = ({ data }: ProductAccordion) => {
     >
       <AccordionItem value="thumbnail">
         <AccordionTrigger className={`${geistMono.className} text-stone-700`}>
-          Product Details
+          Product Page
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-3">
-          <div className="flex items-center gap-3">
+          <main className="flex gap-4">
+            {/* left */}
+            <ProductImages images={data.product.image ?? []} />
+            {/* right */}
             <div className="flex flex-col gap-2">
-              {images?.map((img) => (
-                <span
-                  key={img}
-                  onClick={() => setThumbnail(img)}
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    cursor: "pointer",
-                    overflow: "hidden",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className={`border rounded-md transition-all object-contain max-h-full w-auto duration-300 ${
-                    thumbnail === img
-                      ? "border-blue-500 border-2"
-                      : "border-gray-200"
-                  }`}
-                >
-                  <Image
-                    src={constructImageUrl(img, 100)}
-                    alt="Product thumbnail"
-                    width={40}
-                    height={40}
-                  />
-                </span>
-              ))}
-            </div>
-            <div
-              style={{
-                width: "600px",
-                height: "600px",
-                cursor: "pointer",
-                overflow: "hidden",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              className="border border-stone-200 p-2 rounded-md transition-all object-contain max-h-full w-auto"
-            >
-              <Image
-                src={constructImageUrl(thumbnail, 1500)}
-                alt="Thumbnail"
-                width={600}
-                height={600}
-              />
-            </div>
-          </div>
+              <p className={`text-stone-900 text-2xl font-semibold`}>
+                {data.product.title}
+              </p>
+              <span className="flex items-center gap-2 border-b pb-4">
+                <p>{data.product.ratings?.rating}</p>
+                <Stars ratings={data.product.ratings ?? {}} />
 
-          <div
-            className={`${manrope.className} text-stone-700 flex flex-col gap-2`}
-          ></div>
+                <p className="text-cyan-700 text-xs font-bold">
+                  {data.product.ratings?.review_count} ratings
+                </p>
+              </span>
+
+              <span className="flex flex-col gap-2 border-b pb-4">
+                <p className="text-stone-900 text-2xl font-semibold">
+                  ₹{formatIndian(data.product.price ?? 0)}
+                </p>
+                <p className="text-stone-500 text-sm font-semibold">
+                  Inclusive of all taxes
+                </p>
+                <span className="">
+                  With{" "}
+                  <span className="text-stone-800 font-bold">
+                    Amazon Business
+                  </span>
+                  , you would have{" "}
+                  <span className="text-stone-800 font-bold">
+                    saved ₹1,631.51
+                  </span>{" "}
+                  in the last year.{" "}
+                  <span className="text-cyan-800 font-bold">
+                    Create a free account
+                  </span>{" "}
+                  and{" "}
+                  <span className="text-stone-800 font-bold">
+                    save up to 15%
+                  </span>{" "}
+                  today.
+                </span>
+              </span>
+              <span className="flex flex-col gap-2 border-b pb-4">
+                <Offers price={data.product.price ?? 0} />
+              </span>
+            </div>
+          </main>
         </AccordionContent>
       </AccordionItem>
     </Accordion>
