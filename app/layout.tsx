@@ -29,7 +29,7 @@ export default function RootLayout({
             />
           </span>
         </div>
-        {children}
+        <main className="container mx-auto">{children}</main>
       </body>
     </html>
   );
