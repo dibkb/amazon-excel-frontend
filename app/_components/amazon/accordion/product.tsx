@@ -12,6 +12,7 @@ import Stars from "../stars/stars";
 import { formatIndian } from "@/utils/amazon/format-number";
 import ProductImages from "../carosoul/product-images";
 import Offers from "../offers";
+import Service from "../service";
 interface ProductAccordion {
   data: AmazonProductResponse;
 }
@@ -75,6 +76,9 @@ const ProductAccordion = ({ data }: ProductAccordion) => {
               </span>
               <span className="flex flex-col gap-2 border-b pb-4">
                 <Offers price={data.product.price ?? 0} />
+              </span>
+              <span className="flex flex-col gap-2 border-b pb-4">
+                <Service />
               </span>
             </div>
           </main>
