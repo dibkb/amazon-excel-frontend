@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "cdn.pixabay.com",
       },
+      {
+        hostname: "m.media-amazon.com",
+      },
     ],
   },
 };

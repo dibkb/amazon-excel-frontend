@@ -8,7 +8,7 @@ import type { Review } from './Review';
 import type { Specifications } from './Specifications';
 export type Product = {
     title?: (string | null);
-    image?: (string | null);
+    image?: (Array<string> | null);
     price?: number;
     categories?: Array<string>;
     description?: Description;

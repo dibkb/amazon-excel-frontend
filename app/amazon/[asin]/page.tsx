@@ -21,7 +21,7 @@ export default async function AsinPage({
       >
         Showing product for ASIN: {asin}
       </p>
-      <ThumbnailAccordion />
+      <ThumbnailAccordion data={data} />
     </div>
   );
 }

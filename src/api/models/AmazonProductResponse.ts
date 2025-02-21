@@ -2,9 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Product } from './Product';
+import type { Product } from "./Product";
 export type AmazonProductResponse = {
-    product: Product;
-    error?: (string | null);
+  product: Product;
+  error?: string | null;
 };
-
