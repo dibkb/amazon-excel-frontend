@@ -1,5 +1,13 @@
 "use client";
+import { geistMono } from "@/app/fonts";
 import ChevronRightSvg from "./chevron-right-svg";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 interface ProductHighlights {
   highlights: string[];
 }
@@ -11,13 +19,25 @@ const ProductHighlights = ({ highlights }: ProductHighlights) => {
       <span>{highlight}</span>
     </li>
   ));
+
   return (
-    <section className="flex flex-col gap-2 my-4 border-b pb-4">
-      <h2 className="font-semibold text-stone-900 mb-4">Product Description</h2>
-      <ul className="flex flex-col gap-3 text-sm font-medium text-stone-900">
-        {content}
-      </ul>
-    </section>
+    <Accordion
+      type="single"
+      collapsible
+      className="w-full"
+      defaultValue="thumbnail"
+    >
+      <AccordionItem value="thumbnail">
+        <AccordionTrigger className={`${geistMono.className} text-stone-700`}>
+          Product Description
+        </AccordionTrigger>
+        <AccordionContent className="flex flex-col gap-3">
+          <ul className="flex flex-col gap-3 text-sm font-medium text-stone-900">
+            {content}
+          </ul>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 };
 

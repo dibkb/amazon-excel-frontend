@@ -18,7 +18,7 @@ const Categories = ({ categories }: CategoriesProps) => {
     <Breadcrumb className="text-xs font-semibold">
       <BreadcrumbList>
         {categories?.slice(0, -1)?.map((category) => (
-          <span key={category} className="flex">
+          <span key={category} className="flex items-center gap-1">
             <BreadcrumbItem className="text-xs font-semibold">
               <BreadcrumbLink>{category}</BreadcrumbLink>
             </BreadcrumbItem>

@@ -4,6 +4,7 @@ import { geistMono } from "@/app/fonts";
 import { AmazonProductResponse } from "@/src/api";
 import api from "@/src/axios/base";
 import ProductHighlights from "@/app/_components/amazon/highlights/highlights";
+import ProductInformation from "@/app/_components/amazon/product-information/product-information";
 
 export default async function AsinPage({
   params,
@@ -15,7 +16,6 @@ export default async function AsinPage({
   const { data } = (await api.get(`/amazon/${asin}`)) as {
     data: AmazonProductResponse;
   };
-  console.log(data);
   return (
     <div>
       <p
@@ -30,6 +30,7 @@ export default async function AsinPage({
           <ProductHighlights
             highlights={data.product.description?.highlights ?? []}
           />
+          <ProductInformation data={data} />
         </>
       )}
     </div>

@@ -32,19 +32,19 @@ const CardOffers = ({ type, price }: CardOffersProps) => {
     case "no-cost-emi":
       title = "No Cost EMI";
       description = `₹${formatIndian(
-        price * 0.04
+        Number((price * 0.04).toFixed(2))
       )} EMI interest savings on select Credit Cards`;
       break;
     case "bank-offer":
       title = "Bank Offer";
       description = `₹${formatIndian(
-        price * 0.0306
+        Number((price * 0.0306).toFixed(2))
       )} discount on select Credit Cards`;
       break;
     case "cashback":
       title = "Cashback";
       description = `₹${formatIndian(
-        price * 0.0499
+        Number((price * 0.0499).toFixed(2))
       )} cashback as Amazon Pay Balance when…`;
       break;
     case "partner-offer":
