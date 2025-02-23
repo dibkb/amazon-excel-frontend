@@ -61,7 +61,7 @@ const ThumbnailAccordion = ({ data }: ThumbnailAccordionProps) => {
               {data.product.title}
             </p>
             <span className="flex items-center gap-1">
-              <Stars ratings={data.product.ratings ?? {}} />
+              <Stars rating={Number(data.product.ratings?.rating)} />
               <span className="text-sm text-cyan-800 font-semibold">
                 {data.product.ratings?.review_count}
               </span>

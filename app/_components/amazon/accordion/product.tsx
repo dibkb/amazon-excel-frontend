@@ -43,7 +43,7 @@ const ProductAccordion = ({ data }: ProductAccordion) => {
               </p>
               <span className="flex items-center gap-2 border-b pb-4">
                 <p>{data.product.ratings?.rating}</p>
-                <Stars ratings={data.product.ratings ?? {}} />
+                <Stars rating={Number(data.product.ratings?.rating)} />
 
                 <p className="text-cyan-700 text-xs font-bold">
                   {data.product.ratings?.review_count} ratings

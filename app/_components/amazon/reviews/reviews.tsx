@@ -9,11 +9,10 @@ import { AmazonProductResponse } from "@/src/api";
 import React from "react";
 import { geistMono } from "@/app/fonts";
 import Stars from "../stars/stars";
-import { Progress } from "@/components/ui/progress";
 import Ratingbar from "./rating-bar";
+import ReviewsList from "./review-list";
 
 const Reviews = ({ data }: { data: AmazonProductResponse }) => {
-  console.log(data);
   return (
     <Accordion
       type="single"
@@ -26,9 +25,9 @@ const Reviews = ({ data }: { data: AmazonProductResponse }) => {
           Customer Reviews
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-3">
-          <main className="flex flex-col items-start gap-2">
+          <section className="flex flex-col items-start gap-2">
             <span className="flex items-center gap-2">
-              <Stars ratings={data.product.ratings ?? {}} />
+              <Stars rating={Number(data.product.ratings?.rating)} />
               <p className="text-sm font-bold text-stone-900">
                 {data.product.ratings?.rating}
               </p>
@@ -69,7 +68,9 @@ const Reviews = ({ data }: { data: AmazonProductResponse }) => {
                 }
               />
             </main>
-          </main>
+            {/* reviews */}
+            <ReviewsList reviews={data.product.reviews ?? []} />
+          </section>
         </AccordionContent>
       </AccordionItem>
     </Accordion>
