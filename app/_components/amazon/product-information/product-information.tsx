@@ -14,7 +14,6 @@ interface ProductHighlights {
 }
 
 const ProductInformation = ({ data }: ProductHighlights) => {
-  console.log(data);
   return (
     <Accordion
       type="single"

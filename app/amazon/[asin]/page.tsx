@@ -5,6 +5,7 @@ import { AmazonProductResponse } from "@/src/api";
 import api from "@/src/axios/base";
 import ProductHighlights from "@/app/_components/amazon/highlights/highlights";
 import ProductInformation from "@/app/_components/amazon/product-information/product-information";
+import Reviews from "@/app/_components/amazon/reviews/reviews";
 
 export default async function AsinPage({
   params,
@@ -31,6 +32,7 @@ export default async function AsinPage({
             highlights={data.product.description?.highlights ?? []}
           />
           <ProductInformation data={data} />
+          <Reviews data={data} />
         </>
       )}
     </div>
