@@ -19,7 +19,7 @@ const Stars = ({ ratings }: StarsProps) => {
     (_, index) => <Star key={index} className="size-4 text-yellow-600" />
   );
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-[1.5px]">
       {ratedStars}
       {unratedStars}
     </div>

@@ -1,6 +1,7 @@
 import { constructImageUrl } from "@/utils/amazon/construct-image-url";
 import React from "react";
 import Image from "next/image";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 interface ProductImages {
   images: string[];
 }
@@ -26,12 +27,14 @@ const ProductImages = ({ images }: ProductImages) => {
               thumbnail === img ? "border-blue-500 border-2" : "border-gray-200"
             }`}
           >
-            <Image
-              src={constructImageUrl(img, 100)}
-              alt="Product thumbnail"
-              width={40}
-              height={40}
-            />
+            <AspectRatio ratio={1}>
+              <Image
+                src={constructImageUrl(img, 100)}
+                alt="Product thumbnail"
+                width={40}
+                height={40}
+              />
+            </AspectRatio>
           </span>
         ))}
       </div>
@@ -47,12 +50,14 @@ const ProductImages = ({ images }: ProductImages) => {
         }}
         className="border border-stone-200 p-2 rounded-md transition-all object-contain max-h-full w-auto"
       >
-        <Image
-          src={constructImageUrl(thumbnail, 1500)}
-          alt="Thumbnail"
-          width={550}
-          height={550}
-        />
+        <AspectRatio ratio={1}>
+          <Image
+            src={constructImageUrl(thumbnail, 1500)}
+            alt="Thumbnail"
+            width={550}
+            height={550}
+          />
+        </AspectRatio>
       </div>
     </div>
   );

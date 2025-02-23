@@ -3,6 +3,7 @@ import ProductAccordion from "@/app/_components/amazon/accordion/product";
 import { geistMono } from "@/app/fonts";
 import { AmazonProductResponse } from "@/src/api";
 import api from "@/src/axios/base";
+import ProductHighlights from "@/app/_components/amazon/highlights/highlights";
 
 export default async function AsinPage({
   params,
@@ -22,8 +23,15 @@ export default async function AsinPage({
       >
         Showing product for ASIN: {asin}
       </p>
-      <ThumbnailAccordion data={data} />
-      <ProductAccordion data={data} />
+      {data && (
+        <>
+          <ThumbnailAccordion data={data} />
+          <ProductAccordion data={data} />
+          <ProductHighlights
+            highlights={data.product.description?.highlights ?? []}
+          />
+        </>
+      )}
     </div>
   );
 }
