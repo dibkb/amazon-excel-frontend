@@ -38,4 +38,24 @@ export class DefaultService {
             },
         });
     }
+    /**
+     * Get Amazon Review
+     * @param imageId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static getAmazonReviewAmazonReviewImageIdGet(
+        imageId: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/amazon/review/{image_id}',
+            path: {
+                'image_id': imageId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
 }
