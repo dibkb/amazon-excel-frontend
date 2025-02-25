@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import io, { Socket } from "socket.io-client";
-let socket: Socket;
+import io from "socket.io-client";
 
 export default function Improvements() {
   useEffect(() => {
@@ -20,9 +19,7 @@ export default function Improvements() {
       console.log("Connected to FastAPI Socket.IO server", socket.id);
     });
 
-    socket.on("connect_error", (error) => {
-      console.error("Connection error:", error);
-    });
+    // socket.on("connect_error", (error) => {});
 
     socket.on("welcome", (data: { message: string }) => {
       console.log("Received welcome message:", data);

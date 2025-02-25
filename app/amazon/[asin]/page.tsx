@@ -1,3 +1,4 @@
+"use client";
 import { AmazonProductResponse } from "@/src/api";
 import api from "@/src/axios/base";
 
@@ -5,16 +6,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Product from "@/app/_components/amazon/tabs/product";
 import Sowt from "@/app/_components/amazon/tabs/swot";
 import Improvements from "@/app/_components/amazon/tabs/improvements";
-export default async function AsinPage({
+import { useEffect, useState, use } from "react";
+
+export default function AsinPage({
   params,
 }: {
   params: Promise<{ asin: string }>;
 }) {
-  const asin = (await params).asin;
+  const { asin } = use(params);
+  const [data, setData] = useState<AmazonProductResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = (await api.get(`/amazon/${asin}`)) as {
+        data: AmazonProductResponse;
+      };
+      setData(data);
+    };
+    fetchData();
+  }, [asin]);
 
-  const { data } = (await api.get(`/amazon/${asin}`)) as {
-    data: AmazonProductResponse;
-  };
   return (
     <Tabs defaultValue="product" className="w-full">
       <TabsList className="grid w-[700px] grid-cols-4 mx-auto sticky z-10 top-12">
@@ -30,14 +40,12 @@ export default async function AsinPage({
         </TabsTrigger>
       </TabsList>
       <TabsContent value="product">
-        <Product data={data} asin={asin} />
+        {data && <Product data={data} asin={asin} />}
       </TabsContent>
       <TabsContent value="improvements">
         <Improvements />
       </TabsContent>
-      <TabsContent value="swot">
-        <Sowt data={data} />
-      </TabsContent>
+      <TabsContent value="swot">{data && <Sowt data={data} />}</TabsContent>
       <TabsContent value="ab-test">
         <div>ab-test</div>
       </TabsContent>
