@@ -17,7 +17,9 @@ export default function RootLayout({
       <body className={`${geistMono.variable} ${manrope.variable} antialiased`}>
         <div className="flex flex-col justify-center container mx-auto py-4">
           <span className="flex items-center gap-2">
-            <h2 className={`${geistMono.className} text-base`}>dibkb/</h2>
+            <h2 className={`${geistMono.className} text-base`}>
+              ecommerce-excel/
+            </h2>
             <Image
               src={
                 "https://cdn.pixabay.com/photo/2021/08/10/16/02/amazon-6536326_640.png"

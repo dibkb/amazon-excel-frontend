@@ -7,7 +7,6 @@ interface ProductImages {
 }
 const ProductImages = ({ images }: ProductImages) => {
   const [thumbnail, setThumbnail] = React.useState<string>(images?.[0] ?? "");
-  console.log(images);
   return (
     <div className="flex items-center gap-3">
       <div className="flex flex-col gap-2">
