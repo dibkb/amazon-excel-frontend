@@ -1,12 +1,8 @@
-import ThumbnailAccordion from "@/app/_components/amazon/accordion/thumbnail";
-import ProductAccordion from "@/app/_components/amazon/accordion/product";
-import { geistMono } from "@/app/fonts";
 import { AmazonProductResponse } from "@/src/api";
 import api from "@/src/axios/base";
-import ProductHighlights from "@/app/_components/amazon/highlights/highlights";
-import ProductInformation from "@/app/_components/amazon/product-information/product-information";
-import Reviews from "@/app/_components/amazon/reviews/reviews";
 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Product from "@/app/_components/amazon/tabs/product";
 export default async function AsinPage({
   params,
 }: {
@@ -18,23 +14,19 @@ export default async function AsinPage({
     data: AmazonProductResponse;
   };
   return (
-    <div>
-      <p
-        className={`${geistMono.className} text-base text-center font-medium text-stone-800`}
-      >
-        Showing product for ASIN: {asin}
-      </p>
-      {data && (
-        <>
-          <ThumbnailAccordion data={data} />
-          <ProductAccordion data={data} />
-          <ProductHighlights
-            highlights={data.product.description?.highlights ?? []}
-          />
-          <ProductInformation data={data} />
-          <Reviews data={data} />
-        </>
-      )}
-    </div>
+    <Tabs defaultValue="product" className="w-full">
+      <TabsList className="grid w-[500px] grid-cols-2 mx-auto sticky z-10 top-6">
+        <TabsTrigger value="product">Product Details</TabsTrigger>
+        <TabsTrigger value="improvements">
+          <span className="flex items-center gap-2">🤖 Improvements</span>
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="product">
+        <Product data={data} asin={asin} />
+      </TabsContent>
+      <TabsContent value="improvements">
+        <div>improvements</div>
+      </TabsContent>
+    </Tabs>
   );
 }

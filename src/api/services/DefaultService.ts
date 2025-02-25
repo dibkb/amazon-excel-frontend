@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AmazonProductResponse } from '../models/AmazonProductResponse';
+import type { ProductImprovementSchema } from '../models/ProductImprovementSchema';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -52,6 +53,46 @@ export class DefaultService {
             url: '/amazon/review/{image_id}',
             path: {
                 'image_id': imageId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get Amazon Product Sage
+     * @param asin
+     * @returns ProductImprovementSchema Successful Response
+     * @throws ApiError
+     */
+    public static getAmazonProductSageAmazonProductSageAsinGet(
+        asin: string,
+    ): CancelablePromise<Array<ProductImprovementSchema>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/amazon/product-sage/{asin}',
+            path: {
+                'asin': asin,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get Amazon Competitors
+     * @param asin
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static getAmazonCompetitorsAmazonCompetitorsAsinGet(
+        asin: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/amazon/competitors/{asin}',
+            path: {
+                'asin': asin,
             },
             errors: {
                 422: `Validation Error`,

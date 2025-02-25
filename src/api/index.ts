@@ -8,9 +8,11 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AmazonProductResponse } from './models/AmazonProductResponse';
+export type { Competitor } from './models/Competitor';
 export type { Description } from './models/Description';
 export type { HTTPValidationError } from './models/HTTPValidationError';
 export type { Product } from './models/Product';
+export type { ProductImprovementSchema } from './models/ProductImprovementSchema';
 export type { Ratings } from './models/Ratings';
 export type { RatingStats } from './models/RatingStats';
 export type { Specifications } from './models/Specifications';

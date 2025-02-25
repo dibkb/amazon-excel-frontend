@@ -14,7 +14,7 @@ const ReviewsList = ({
         <span className="flex items-center gap-2">
           <Avatar>
             <AvatarImage
-              src={`https://avatar.iran.liara.run/public`}
+              src={`https://avatar.iran.liara.run/username?username=${review}`}
               alt={review}
             />
             <AvatarFallback>CN</AvatarFallback>

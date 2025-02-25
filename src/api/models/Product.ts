@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Competitor } from './Competitor';
 import type { Description } from './Description';
 import type { Ratings } from './Ratings';
 import type { Specifications } from './Specifications';
@@ -14,5 +15,6 @@ export type Product = {
     specifications?: Specifications;
     ratings?: Ratings;
     reviews?: Array<string>;
+    related_products?: Array<Competitor>;
 };
 
