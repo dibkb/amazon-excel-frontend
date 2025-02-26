@@ -1,3 +1,4 @@
+"use client";
 import {
   Accordion,
   AccordionContent,
@@ -5,12 +6,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { formatIndian } from "@/utils/amazon/format-number";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { constructImageUrl } from "@/utils/amazon/construct-image-url";
 import { cn } from "@/lib/utils";
 import { geistMono, manrope } from "@/app/fonts";
 import { AmazonProductResponse } from "@/src/api/models/AmazonProductResponse";
+import { productStore } from "@/app/store/productStore";
 
 const emojiMap = {
   checked: "✅",
@@ -20,25 +22,27 @@ interface SelectedProductsProps {
   relatedProducts: AmazonProductResponse["product"]["related_products"];
 }
 const SelectedProducts = ({ relatedProducts }: SelectedProductsProps) => {
-  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+  const { selectedProducts, setSelectedProducts } = productStore();
   const onClickHandler = (asin: string) => {
-    setSelectedProducts((prev) => {
-      if (prev.includes(asin)) {
-        return prev.filter((p) => p !== asin);
-      }
-      if (prev.length >= 3) {
-        return prev;
-      }
-      return [...prev, asin];
-    });
+    if (selectedProducts.includes(asin)) {
+      setSelectedProducts(selectedProducts.filter((p) => p !== asin));
+      return;
+    }
+
+    if (selectedProducts.length >= 3) {
+      // TODO : toast
+      return;
+    }
+
+    setSelectedProducts([...selectedProducts, asin]);
   };
   const products = relatedProducts?.map((prod, id) => {
     return (
       <div
         className={cn(
-          "flex gap-4 border p-4 rounded-md cursor-pointer hover:border-emerald-700 transition-all duration-300",
+          "flex gap-4 border p-4 rounded-md cursor-pointer hover:border-teal-700 transition-all duration-300",
           selectedProducts.includes(prod.asin)
-            ? " bg-emerald-600"
+            ? " bg-teal-600"
             : "border-stone-200"
         )}
         key={prod.asin + id}

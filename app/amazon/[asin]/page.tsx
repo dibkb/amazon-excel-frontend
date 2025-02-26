@@ -17,8 +17,8 @@ export default function AsinPage({
   useFetchImprovements(asin);
   return (
     <Tabs defaultValue="product" className="w-full">
-      <TabsList className="grid w-[700px] grid-cols-4 mx-auto sticky z-10 top-12">
-        <TabsTrigger value="product">Product Details</TabsTrigger>
+      <TabsList className="grid w-[900px] grid-cols-5 mx-auto sticky z-10 top-12">
+        <TabsTrigger value="product">📄 Product Details</TabsTrigger>
         <TabsTrigger value="improvements">
           <span className="flex items-center gap-2">🤖 Improvements</span>
         </TabsTrigger>
@@ -27,6 +27,9 @@ export default function AsinPage({
         </TabsTrigger>
         <TabsTrigger value="ab-test">
           <span className="flex items-center gap-2">🧪 AB Test</span>
+        </TabsTrigger>
+        <TabsTrigger value="dashboard">
+          <span className="flex items-center gap-2">🌐 Dashboard</span>
         </TabsTrigger>
       </TabsList>
       <TabsContent value="product">
@@ -40,6 +43,9 @@ export default function AsinPage({
       </TabsContent>
       <TabsContent value="ab-test">
         <div>ab-test</div>
+      </TabsContent>
+      <TabsContent value="dashboard">
+        <div>dashboard</div>
       </TabsContent>
     </Tabs>
   );
