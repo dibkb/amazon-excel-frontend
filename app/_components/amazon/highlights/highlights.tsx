@@ -7,13 +7,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { productStore } from "@/app/store/productStore";
 
-interface ProductHighlights {
-  highlights: string[];
-}
-
-const ProductHighlights = ({ highlights }: ProductHighlights) => {
-  const content = highlights.map((highlight) => (
+const ProductHighlights = () => {
+  const { product } = productStore();
+  const content = product?.product.description?.highlights?.map((highlight) => (
     <li key={highlight} className="flex items-start gap-2">
       <ChevronRightSvg />
       <span>{highlight}</span>

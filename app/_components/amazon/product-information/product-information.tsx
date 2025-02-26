@@ -6,14 +6,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { AmazonProductResponse } from "@/src/api";
 import ProductRow from "./product-row";
+import { productStore } from "@/app/store/productStore";
 
-interface ProductHighlights {
-  data: AmazonProductResponse;
-}
-
-const ProductInformation = ({ data }: ProductHighlights) => {
+const ProductInformation = () => {
+  const { product } = productStore();
   return (
     <Accordion
       type="single"
@@ -29,15 +26,15 @@ const ProductInformation = ({ data }: ProductHighlights) => {
           <p className="text-sm font-bold text-stone-900 text-center my-3">
             Specifications
           </p>
-          {Object.entries(data.product.specifications?.additional ?? {}).map(
-            ([key, value]) => (
-              <ProductRow key={key} row={key} value={value} />
-            )
-          )}
+          {Object.entries(
+            product?.product.specifications?.additional ?? {}
+          ).map(([key, value]) => (
+            <ProductRow key={key} row={key} value={value} />
+          ))}
           <p className="text-sm font-bold text-stone-900 text-center my-3">
             Technical Specifications
           </p>
-          {Object.entries(data.product.specifications?.technical ?? {}).map(
+          {Object.entries(product?.product.specifications?.technical ?? {}).map(
             ([key, value]) => (
               <ProductRow key={key} row={key} value={value} />
             )

@@ -1,17 +1,14 @@
 "use client";
-import { AmazonProductResponse } from "@/src/api/models/AmazonProductResponse";
 import React from "react";
 
 import SelectedProducts from "../accordion/swot/selected-products";
+import { productStore } from "@/app/store/productStore";
 
-interface SowtProps {
-  data: AmazonProductResponse;
-}
-
-const Sowt = ({ data }: SowtProps) => {
+const Sowt = () => {
+  const { product } = productStore();
   return (
     <div className="mt-6">
-      <SelectedProducts relatedProducts={data.product.related_products} />
+      <SelectedProducts relatedProducts={product?.product.related_products} />
     </div>
   );
 };

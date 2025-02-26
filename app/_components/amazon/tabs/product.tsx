@@ -6,13 +6,10 @@ import ProductAccordion from "../accordion/product";
 import ProductHighlights from "../highlights/highlights";
 import ProductInformation from "../product-information/product-information";
 import Reviews from "../reviews/reviews";
-import { AmazonProductResponse } from "@/src/api/models/AmazonProductResponse";
+import { productStore } from "@/app/store/productStore";
 
-interface Product {
-  data: AmazonProductResponse;
-  asin: string;
-}
-const Product = ({ data, asin }: Product) => {
+const Product = () => {
+  const { product, asin } = productStore();
   return (
     <div>
       <div>
@@ -21,15 +18,13 @@ const Product = ({ data, asin }: Product) => {
         >
           Showing product for ASIN: {asin}
         </p>
-        {data && (
+        {product && (
           <>
-            <ThumbnailAccordion data={data} />
-            <ProductAccordion data={data} />
-            <ProductHighlights
-              highlights={data.product.description?.highlights ?? []}
-            />
-            <ProductInformation data={data} />
-            <Reviews data={data} />
+            <ThumbnailAccordion />
+            <ProductAccordion />
+            <ProductHighlights />
+            <ProductInformation />
+            <Reviews />
           </>
         )}
       </div>

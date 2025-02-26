@@ -8,16 +8,13 @@ import {
 } from "@/components/ui/accordion";
 import Image from "next/image";
 import { geistMono, manrope } from "@/app/fonts";
-import { AmazonProductResponse } from "@/src/api";
 import { constructImageUrl } from "@/utils/amazon/construct-image-url";
 import Stars from "../stars/stars";
 import { formatIndian } from "@/utils/amazon/format-number";
+import { productStore } from "@/app/store/productStore";
 
-interface ThumbnailAccordionProps {
-  data: AmazonProductResponse;
-}
-
-const ThumbnailAccordion = ({ data }: ThumbnailAccordionProps) => {
+const ThumbnailAccordion = () => {
+  const { product } = productStore();
   const [deliveryDate, setDeliveryDate] = React.useState<string>("");
   const [stock, setStock] = React.useState<number>(0);
 
@@ -49,7 +46,7 @@ const ThumbnailAccordion = ({ data }: ThumbnailAccordionProps) => {
         </AccordionTrigger>
         <AccordionContent className="flex gap-3">
           <Image
-            src={constructImageUrl(data.product.image?.[0] ?? "")}
+            src={constructImageUrl(product?.product.image?.[0] ?? "")}
             alt="Thumbnail"
             width={200}
             height={200}
@@ -58,16 +55,16 @@ const ThumbnailAccordion = ({ data }: ThumbnailAccordionProps) => {
             className={`${manrope.className} text-stone-700 flex flex-col gap-2`}
           >
             <p className={`text-stone-800 font-bold text-lg`}>
-              {data.product.title}
+              {product?.product.title}
             </p>
             <span className="flex items-center gap-1">
-              <Stars rating={Number(data.product.ratings?.rating)} />
+              <Stars rating={Number(product?.product.ratings?.rating)} />
               <span className="text-sm text-cyan-800 font-semibold">
-                {data.product.ratings?.review_count}
+                {product?.product.ratings?.review_count}
               </span>
             </span>
             <p className={`text-amazon-red font-semibold text-xl`}>
-              ₹{formatIndian(data.product.price ?? 0)}
+              ₹{formatIndian(product?.product.price ?? 0)}
             </p>
             <div className="flex flex-col gap-1">
               <p className="text-sm text-stone-500 font-medium">
