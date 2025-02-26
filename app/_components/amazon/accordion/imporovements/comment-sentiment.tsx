@@ -17,6 +17,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Features from "../../chip/features";
+import Sentiment from "../../chip/sentiment";
 const CommentSentiment = () => {
   const { improvements } = productStore();
   return (
@@ -46,9 +48,11 @@ const CommentSentiment = () => {
                   <TableCell className="font-medium">
                     {sentiment.key_aspects}
                   </TableCell>
-                  <TableCell>{sentiment.features}</TableCell>
+                  <TableCell>
+                    <Features features={sentiment.features} />
+                  </TableCell>
                   <TableCell className="text-right">
-                    {sentiment.sentiment}
+                    <Sentiment text={sentiment.sentiment} />
                   </TableCell>
                 </TableRow>
               ))}
