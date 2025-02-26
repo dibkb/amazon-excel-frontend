@@ -1,4 +1,5 @@
 import { AmazonProductResponse } from "@/src/api/models/AmazonProductResponse";
+import { ProductSageResponse } from "@/src/api/models/ProductSageResponse";
 import { create } from "zustand";
 
 interface ProductStore {
@@ -10,6 +11,8 @@ interface ProductStore {
   setErrorProduct: (error: string | null) => void;
   asin: string | undefined;
   setAsin: (asin: string) => void;
+  improvements: ProductSageResponse | null;
+  setImprovements: (improvements: ProductSageResponse) => void;
 }
 
 export const productStore = create<ProductStore>((set) => ({
@@ -21,4 +24,6 @@ export const productStore = create<ProductStore>((set) => ({
   setErrorProduct: (error: string | null) => set({ errorProduct: error }),
   asin: undefined,
   setAsin: (asin: string) => set({ asin }),
+  improvements: null,
+  setImprovements: (improvements: ProductSageResponse) => set({ improvements }),
 }));

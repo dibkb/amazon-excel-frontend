@@ -2,10 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Competitor = {
-    asin: string;
-    title: string;
-    img_id: string;
-    price: number;
+export type SentimentSchema = {
+    sentiment: string;
+    features: string;
+    key_aspects: string;
 };
 

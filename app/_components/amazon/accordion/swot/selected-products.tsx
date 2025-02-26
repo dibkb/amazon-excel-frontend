@@ -59,6 +59,9 @@ const SelectedProducts = ({ relatedProducts }: SelectedProductsProps) => {
               : "text-stone-700"
           )}
         >
+          <p className={cn(`text-stone-700 text-sm`, geistMono.className)}>
+            {prod.asin}
+          </p>
           <p className={`font-bold text-base`}>{prod.title}</p>
           <p className={`text-amazon-red font-semibold text-sm`}>
             ₹{formatIndian(prod.price ?? 0)}

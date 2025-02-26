@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AmazonProductResponse } from '../models/AmazonProductResponse';
-import type { ProductImprovementSchema } from '../models/ProductImprovementSchema';
+import type { ProductSageResponse } from '../models/ProductSageResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -62,12 +62,12 @@ export class DefaultService {
     /**
      * Get Amazon Product Sage
      * @param asin
-     * @returns ProductImprovementSchema Successful Response
+     * @returns ProductSageResponse Successful Response
      * @throws ApiError
      */
     public static getAmazonProductSageAmazonProductSageAsinGet(
         asin: string,
-    ): CancelablePromise<Array<ProductImprovementSchema>> {
+    ): CancelablePromise<ProductSageResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/amazon/product-sage/{asin}',

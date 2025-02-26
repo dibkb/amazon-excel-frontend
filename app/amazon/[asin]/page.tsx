@@ -6,7 +6,7 @@ import Sowt from "@/app/_components/amazon/tabs/swot";
 import Improvements from "@/app/_components/amazon/tabs/improvements";
 import { use } from "react";
 import { useFetchProductData } from "@/app/_components/hooks/useFetchProductData";
-
+import { useFetchImprovements } from "@/app/_components/hooks/useFetchImprvements";
 export default function AsinPage({
   params,
 }: {
@@ -14,6 +14,7 @@ export default function AsinPage({
 }) {
   const { asin } = use(params);
   useFetchProductData(asin);
+  useFetchImprovements(asin);
   return (
     <Tabs defaultValue="product" className="w-full">
       <TabsList className="grid w-[700px] grid-cols-4 mx-auto sticky z-10 top-12">
