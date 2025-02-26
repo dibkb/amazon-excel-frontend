@@ -75,9 +75,9 @@ const SelectedProducts = ({ relatedProducts }: SelectedProductsProps) => {
       type="single"
       collapsible
       className="w-full"
-      defaultValue="thumbnail"
+      defaultValue="imporovements"
     >
-      <AccordionItem value="thumbnail">
+      <AccordionItem value="imporovements">
         <AccordionTrigger className={`${geistMono.className} text-stone-700`}>
           {emojiMap[selectedProducts.length ? "checked" : "cross"]} Select Upto
           3 products for comparison ({selectedProducts.length} selected)
