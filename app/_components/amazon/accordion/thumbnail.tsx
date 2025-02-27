@@ -46,7 +46,7 @@ const ThumbnailAccordion = () => {
         </AccordionTrigger>
         <AccordionContent className="flex gap-3">
           <Image
-            src={constructImageUrl(product?.product.image?.[0] ?? "")}
+            src={constructImageUrl(product?.image?.[0] ?? "")}
             alt="Thumbnail"
             width={200}
             height={200}
@@ -55,16 +55,16 @@ const ThumbnailAccordion = () => {
             className={`${manrope.className} text-stone-700 flex flex-col gap-2`}
           >
             <p className={`text-stone-800 font-bold text-lg`}>
-              {product?.product.title}
+              {product?.title}
             </p>
             <span className="flex items-center gap-1">
-              <Stars rating={Number(product?.product.ratings?.rating)} />
+              <Stars rating={Number(product?.ratings?.rating)} />
               <span className="text-sm text-cyan-800 font-semibold">
-                {product?.product.ratings?.review_count}
+                {product?.ratings?.review_count}
               </span>
             </span>
             <p className={`text-amazon-red font-semibold text-xl`}>
-              ₹{formatIndian(product?.product.price ?? 0)}
+              ₹{formatIndian(product?.price ?? 0)}
             </p>
             <div className="flex flex-col gap-1">
               <p className="text-sm text-stone-500 font-medium">

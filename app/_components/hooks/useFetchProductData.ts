@@ -1,6 +1,6 @@
 import api from "@/src/axios/base";
 
-import { AmazonProductResponse } from "@/src/api";
+import { Product } from "@/src/api";
 import { useEffect } from "react";
 import { productStore } from "@/app/store/productStore";
 export const useFetchProductData = (asin: string) => {
@@ -12,7 +12,7 @@ export const useFetchProductData = (asin: string) => {
       setErrorProduct(null);
       try {
         const { data } = (await api.get(`/amazon/${asin}`)) as {
-          data: AmazonProductResponse;
+          data: Product;
         };
         setAsin(asin);
         setProduct(data);

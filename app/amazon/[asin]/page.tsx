@@ -7,6 +7,7 @@ import Improvements from "@/app/_components/amazon/tabs/improvements";
 import { use } from "react";
 import { useFetchProductData } from "@/app/_components/hooks/useFetchProductData";
 import { useFetchImprovements } from "@/app/_components/hooks/useFetchImprvements";
+import { useMakeSocket } from "@/app/_components/hooks/useMakeSocket";
 export default function AsinPage({
   params,
 }: {
@@ -15,6 +16,8 @@ export default function AsinPage({
   const { asin } = use(params);
   useFetchProductData(asin);
   useFetchImprovements(asin);
+  // make socket
+  useMakeSocket();
   return (
     <Tabs defaultValue="product" className="w-full">
       <TabsList className="grid w-[900px] grid-cols-5 mx-auto sticky z-10 top-12">

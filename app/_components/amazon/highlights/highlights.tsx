@@ -11,7 +11,7 @@ import { productStore } from "@/app/store/productStore";
 
 const ProductHighlights = () => {
   const { product } = productStore();
-  const content = product?.product.description?.highlights?.map((highlight) => (
+  const content = product?.description?.highlights?.map((highlight) => (
     <li key={highlight} className="flex items-start gap-2">
       <ChevronRightSvg />
       <span>{highlight}</span>

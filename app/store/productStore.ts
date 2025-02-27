@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { AmazonProductResponse } from "@/src/api/models/AmazonProductResponse";
 import { ProductSageResponse } from "@/src/api/models/ProductSageResponse";
+import { Product } from "@/src/api";
 
 interface ProductStore {
-  product: AmazonProductResponse | null;
-  setProduct: (product: AmazonProductResponse) => void;
+  product: Product | null;
+  setProduct: (product: Product) => void;
   loadingProduct: boolean;
   setLoadingProduct: (loading: boolean) => void;
   errorProduct: string | null;
@@ -23,7 +23,7 @@ export const productStore = create<ProductStore>()(
   persist(
     (set) => ({
       product: null,
-      setProduct: (product: AmazonProductResponse) => set({ product }),
+      setProduct: (product: Product) => set({ product }),
       loadingProduct: true,
       setLoadingProduct: (loading: boolean) => set({ loadingProduct: loading }),
       errorProduct: null,

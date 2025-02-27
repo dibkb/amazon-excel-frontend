@@ -29,29 +29,29 @@ const ProductAccordion = () => {
           Product Page
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-3">
-          <Categories categories={product?.product.categories ?? []} />
+          <Categories categories={product?.categories ?? []} />
           <main className="flex gap-4">
             {/* left */}
-            <ProductImages images={product?.product.image ?? []} />
+            <ProductImages images={product?.image ?? []} />
             {/* right */}
             <div className="flex flex-col gap-2">
               <p className={`text-stone-900 text-2xl font-semibold`}>
-                {product?.product.title}
+                {product?.title}
               </p>
               <span className="flex items-center gap-2 border-b pb-4">
-                <p>{product?.product.ratings?.rating}</p>
-                <Stars rating={Number(product?.product.ratings?.rating)} />
+                <p>{product?.ratings?.rating}</p>
+                <Stars rating={Number(product?.ratings?.rating)} />
 
                 <p className="text-cyan-700 text-xs font-bold">
-                  {product?.product.ratings?.review_count} ratings
+                  {product?.ratings?.review_count} ratings
                 </p>
               </span>
 
               <span className="flex flex-col gap-2 border-b pb-3">
-                <Price price={product?.product.price ?? 0} />
+                <Price price={product?.price ?? 0} />
               </span>
               <span className="flex flex-col gap-2 border-b pb-3">
-                <Offers price={product?.product.price ?? 0} />
+                <Offers price={product?.price ?? 0} />
               </span>
               <span className="flex flex-col gap-2 border-b pb-3">
                 <Service />

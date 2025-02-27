@@ -20,7 +20,7 @@ const Sowt = () => {
   const { product, selectedProducts } = productStore();
   const relatedProducts = useMemo(() => {
     const set = new Set();
-    const relatedProducts = product?.product.related_products;
+    const relatedProducts = product?.related_products;
     const uniqueRelatedProducts: Competitor[] = [];
     relatedProducts?.forEach((product) => {
       if (!set.has(product.asin)) {

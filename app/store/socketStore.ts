@@ -23,7 +23,7 @@ interface SocketState {
   sendMessage: (event: string, data: unknown) => void;
 }
 
-export const useSocketStore = create<SocketState>((set, get) => ({
+export const socketStore = create<SocketState>((set, get) => ({
   // Initial state
   socket: null,
   isConnected: false,
@@ -55,7 +55,7 @@ export const useSocketStore = create<SocketState>((set, get) => ({
 
     socket.on("connect_error", (error) => {
       set({ isConnected: false, connectionError: error as Error });
-      console.error("Connection error:", error);
+      console.log("Connection error:", error);
     });
 
     socket.on("disconnect", (reason) => {

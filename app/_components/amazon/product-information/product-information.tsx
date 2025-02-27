@@ -26,15 +26,15 @@ const ProductInformation = () => {
           <p className="text-sm font-bold text-stone-900 text-center my-3">
             Specifications
           </p>
-          {Object.entries(
-            product?.product.specifications?.additional ?? {}
-          ).map(([key, value]) => (
-            <ProductRow key={key} row={key} value={value} />
-          ))}
+          {Object.entries(product?.specifications?.additional ?? {}).map(
+            ([key, value]) => (
+              <ProductRow key={key} row={key} value={value} />
+            )
+          )}
           <p className="text-sm font-bold text-stone-900 text-center my-3">
             Technical Specifications
           </p>
-          {Object.entries(product?.product.specifications?.technical ?? {}).map(
+          {Object.entries(product?.specifications?.technical ?? {}).map(
             ([key, value]) => (
               <ProductRow key={key} row={key} value={value} />
             )
