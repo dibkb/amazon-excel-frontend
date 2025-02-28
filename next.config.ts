@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
       {
         hostname: "i.pinimg.com",
       },
+      {
+        hostname: "images.unsplash.com",
+      },
+      {
+        hostname: "images.pexels.com",
+      },
     ],
   },
 };
