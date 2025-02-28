@@ -4,14 +4,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import Eye from "@/svg/eye";
-import EyeSlash from "@/svg/eye";
+import EyeSlash from "@/svg/eyeslash";
 import Github from "@/svg/github";
 import Google from "@/svg/google";
 import Link from "next/link";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
-
 import React, { useState } from "react";
+import { cn } from "@/lib/utils";
+import { geistMono } from "@/app/fonts";
+import { signup } from "@/server/sign";
 
 const SignUpPage = () => {
   const [visible, setVisible] = useState(false);
@@ -21,8 +23,8 @@ const SignUpPage = () => {
   };
   return (
     <>
-      <div className="col-span-6">
-        <AspectRatio ratio={1} className="bg-muted max-h-[800px]">
+      <div className="col-span-5">
+        <AspectRatio ratio={1} className="bg-muted">
           <Image
             src="https://images.unsplash.com/photo-1459478309853-2c33a60058e7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Photo by Drew Beamer"
@@ -31,27 +33,37 @@ const SignUpPage = () => {
           />
         </AspectRatio>
       </div>
-      <div className="col-span-3 h-full">
+      <div className="col-span-4 h-full">
         <div className="p-4 mt-8">
           <p className="text-xl font-bold">Create an account</p>
-          <form className="mt-8 flex flex-col gap-6">
+          <form
+            className="mt-8 flex flex-col gap-6"
+            action={async (formData) => {
+              const res = await signup(formData);
+              console.log(res);
+            }}
+          >
             <div className="grid w-full items-center gap-2">
               <Label
-                htmlFor="Username"
+                htmlFor="username"
                 className="ml-4 text-xs text-stone-500 font-medium"
               >
                 Signup
               </Label>
               <Input
                 type="text"
-                id="Username"
+                id="username"
+                name="username"
                 placeholder="Username"
-                className="bg-stone-100 py-6 px-4 rounded-md text-sm font-semibold"
+                className={cn(
+                  "bg-stone-100 py-6 px-4 rounded-md text-sm font-semibold",
+                  geistMono.className
+                )}
               />
             </div>
             <div className="grid w-full items-center gap-2">
               <Label
-                htmlFor="Username"
+                htmlFor="password"
                 className="ml-4 text-xs text-stone-500 font-medium"
               >
                 Password
@@ -59,9 +71,13 @@ const SignUpPage = () => {
               <div className="relative">
                 <Input
                   type={visible ? "text" : "password"}
-                  id="Password"
+                  id="password"
+                  name="password"
                   placeholder="Enter password"
-                  className="bg-stone-100 py-6 px-4 rounded-md text-sm font-semibold"
+                  className={cn(
+                    "bg-stone-100 py-6 px-4 rounded-md text-sm font-semibold",
+                    geistMono.className
+                  )}
                 />
                 <span
                   onClick={onChangeVisibility}

@@ -1,4 +1,4 @@
-import api from "@/src/axios/base";
+// import api from "@/src/axios/base";
 
 import { ProductSageResponse } from "@/src/api";
 import { useEffect } from "react";

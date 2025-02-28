@@ -19,8 +19,8 @@ export default function AsinPage({
   // make socket
   useMakeSocket();
   return (
-    <Tabs defaultValue="product" className="w-full">
-      <TabsList className="grid w-[900px] grid-cols-5 mx-auto sticky z-10 top-12">
+    <Tabs defaultValue="product" className="w-full mt-[60px]">
+      <TabsList className="grid w-[900px] grid-cols-5 mx-auto sticky z-10">
         <TabsTrigger value="product">📄 Product Details</TabsTrigger>
         <TabsTrigger value="improvements">
           <span className="flex items-center gap-2">🤖 Improvements</span>

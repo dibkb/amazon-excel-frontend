@@ -14,11 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistMono.variable} ${manrope.variable} antialiased`}>
-        <main className="container mx-auto">
-          <Navbar />
-          {children}
-        </main>
+      <body
+        className={`${geistMono.variable} ${manrope.variable} antialiased flex flex-col`}
+      >
+        <Navbar />
+        <main className="container mx-auto mt-[60px]">{children}</main>
       </body>
     </html>
   );
