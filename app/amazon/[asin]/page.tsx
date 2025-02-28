@@ -1,5 +1,5 @@
 "use client";
-
+import { SessionProvider, useSession } from "next-auth/react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Product from "@/app/_components/amazon/tabs/product";
 import Sowt from "@/app/_components/amazon/tabs/swot";
@@ -8,16 +8,17 @@ import { use } from "react";
 import { useFetchProductData } from "@/app/_components/hooks/useFetchProductData";
 import { useFetchImprovements } from "@/app/_components/hooks/useFetchImprvements";
 import { useMakeSocket } from "@/app/_components/hooks/useMakeSocket";
-export default function AsinPage({
-  params,
-}: {
-  params: Promise<{ asin: string }>;
-}) {
-  const { asin } = use(params);
+
+// Create a wrapper component that uses session
+function AsinContent({ asin }: { asin: string }) {
+  // Hooks that need session
   useFetchProductData(asin);
   useFetchImprovements(asin);
-  // make socket
   useMakeSocket();
+
+  const { data: session } = useSession();
+  console.log(session);
+
   return (
     <Tabs defaultValue="product" className="w-full mt-[60px]">
       <TabsList className="grid w-[900px] grid-cols-5 mx-auto sticky z-10">
@@ -51,5 +52,20 @@ export default function AsinPage({
         <div>dashboard</div>
       </TabsContent>
     </Tabs>
+  );
+}
+
+// Main component that provides the session
+export default function AsinPage({
+  params,
+}: {
+  params: Promise<{ asin: string }>;
+}) {
+  const { asin } = use(params);
+
+  return (
+    <SessionProvider>
+      <AsinContent asin={asin} />
+    </SessionProvider>
   );
 }
