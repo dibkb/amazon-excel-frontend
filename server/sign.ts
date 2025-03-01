@@ -1,8 +1,11 @@
 "use server";
+
 import { signIn } from "@/auth";
+import { db } from "@/src/db";
 import { AuthError } from "next-auth";
 import { z } from "zod";
-
+import { usersTable } from "@/src/schema";
+import { saltAndHashPassword } from "@/utils/password";
 // Validation schema
 const CredentialsSchema = z.object({
   username: z.string().min(3).max(20),
@@ -28,15 +31,25 @@ export const signup = async (formData: FormData) => {
     // Attempt signup
     const { username, password } = validated.data;
 
-    await signIn("credentials", {
-      username,
-      password,
-      redirect: false,
-    });
-    return { success: true, message: "Signup successful" };
+    const user = await db
+      .insert(usersTable)
+      .values({
+        username,
+        password: saltAndHashPassword(password),
+      })
+      .returning();
+    return {
+      success: true,
+      message: "Signup successful",
+      user: {
+        username: user[0].username,
+        id: user[0].id,
+      },
+      shouldRedirect: true,
+      redirectUrl: "/auth/signin",
+    };
   } catch (error) {
     console.error("Signup error:", error);
-
     // Handle specific auth errors
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -72,14 +85,22 @@ export const signin = async (formData: FormData) => {
     // Attempt authentication
     const { username, password } = validated.data;
 
-    await signIn("credentials", {
+    const result = await signIn("credentials", {
       username,
       password,
       redirect: false,
     });
-
     // If we get here, signin was successful
-    return { success: true, message: "Signin successful" };
+    return {
+      success: true,
+      message: "Signin successful",
+      user: {
+        username: result.user?.username,
+        id: result.user?.id,
+      },
+      shouldRedirect: true,
+      redirectUrl: "/",
+    };
   } catch (error) {
     console.error("Signin error:", error);
 

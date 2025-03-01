@@ -15,12 +15,20 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { geistMono } from "@/app/fonts";
 import { signin } from "@/server/sign";
+import { useRouter } from "next/navigation";
 
 const SignInPage = () => {
+  const router = useRouter();
   const [visible, setVisible] = useState(false);
   const onChangeVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setVisible((prev) => !prev);
+  };
+  const handleSignin = async (formData: FormData) => {
+    const result = await signin(formData);
+    if (result.success && result.shouldRedirect) {
+      router.push(result.redirectUrl);
+    }
   };
   return (
     <>
@@ -37,13 +45,7 @@ const SignInPage = () => {
       <div className="col-span-4 h-full">
         <div className="p-4 mt-8">
           <p className="text-xl font-bold">Nice to see you again!</p>
-          <form
-            className="mt-8 flex flex-col gap-6"
-            action={async (formData) => {
-              const res = await signin(formData);
-              console.log(res);
-            }}
-          >
+          <form className="mt-8 flex flex-col gap-6" action={handleSignin}>
             <div className="grid w-full items-center gap-2">
               <Label
                 htmlFor="Username"

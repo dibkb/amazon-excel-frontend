@@ -4,10 +4,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Product from "@/app/_components/amazon/tabs/product";
 import Sowt from "@/app/_components/amazon/tabs/swot";
 import Improvements from "@/app/_components/amazon/tabs/improvements";
-import { use } from "react";
+import { use, useEffect } from "react";
 import { useFetchProductData } from "@/app/_components/hooks/useFetchProductData";
 import { useFetchImprovements } from "@/app/_components/hooks/useFetchImprvements";
 import { useMakeSocket } from "@/app/_components/hooks/useMakeSocket";
+import { getUserByUsername } from "@/db/query/users";
 
 // Create a wrapper component that uses session
 function AsinContent({ asin }: { asin: string }) {
@@ -18,6 +19,13 @@ function AsinContent({ asin }: { asin: string }) {
 
   const { data: session } = useSession();
   console.log(session);
+  useEffect(() => {
+    async function fetchUser() {
+      const user = await getUserByUsername("test");
+      console.log("user", user);
+    }
+    fetchUser();
+  }, []);
 
   return (
     <Tabs defaultValue="product" className="w-full mt-[60px]">
@@ -36,6 +44,7 @@ function AsinContent({ asin }: { asin: string }) {
           <span className="flex items-center gap-2">🌐 Dashboard</span>
         </TabsTrigger>
       </TabsList>
+      {/* Content */}
       <TabsContent value="product">
         <Product />
       </TabsContent>

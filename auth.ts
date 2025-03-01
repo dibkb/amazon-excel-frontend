@@ -1,84 +1,113 @@
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-// Your own logic for dealing with plaintext password strings; be careful!
-import { saltAndHashPassword, verifyPassword } from "@/utils/password";
-
-// Mock database for demonstration
-const users = new Map();
+// import Github from "next-auth/providers/github";
+// import Google from "next-auth/providers/google";
+import { getUserByUsername } from "./db/query/users";
+import { verifyPassword } from "./utils/password";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  pages: {
-    signIn: "/auth/signin",
-    error: "/auth/error",
-  },
   providers: [
+    // Github({
+    //   clientId: process.env.GITHUB_CLIENT_ID,
+    //   clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    // }),
+
+    // Google({
+    //   clientId: process.env.GOOGLE_CLIENT_ID,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    // }),
+
     Credentials({
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
+      name: "Credentials",
+
       credentials: {
-        username: {},
-        password: {},
+        username: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
+
       authorize: async (credentials) => {
-        const { username, password } = credentials;
+        const username = credentials.username as string | undefined;
+        const password = credentials.password as string | undefined;
 
         if (!username || !password) {
-          throw new Error("Missing credentials");
+          throw new CredentialsSignin("Please provide both email & password");
         }
 
-        // Check if user exists
-        //   ----------------------- signup-------------------------
-        let user = users.get(username);
-
-        console.log("user", user);
+        const user = await getUserByUsername(username);
 
         if (!user) {
-          // For signup, create a new user
-          const pwHash = saltAndHashPassword(password as string);
-          user = {
-            id: Date.now().toString(),
-            name: username,
-            password: pwHash,
-          };
-
-          // Store the user
-          users.set(username, user);
-
-          // Return user without password
-          return {
-            id: user.id,
-            name: user.name,
-          };
+          throw new Error("Invalid username or password");
         }
 
-        //   ----------------------- signin-------------------------
-        const isPasswordValid = verifyPassword(
-          password as string,
-          user.password
-        );
-        if (!isPasswordValid) {
-          throw new Error("Invalid password");
+        if (!user.password) {
+          throw new Error("Invalid username or password");
         }
-        return {
+
+        const isMatched = verifyPassword(password, user.password);
+
+        if (!isMatched) {
+          throw new Error("Password did not matched");
+        }
+
+        const userData = {
+          username: user.username,
           id: user.id,
-          name: user.name,
         };
+
+        return userData;
       },
     }),
   ],
+
+  pages: {
+    signIn: "/auth/signin",
+  },
+
   callbacks: {
-    jwt: async ({ token, user }) => {
+    async session({ session, token }) {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.sub || "",
+          username: (token.username as string) || "",
+        },
+      };
+    },
+
+    async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.name = user.name;
+        return {
+          ...token,
+          username: (user as unknown as { username: string }).username,
+          id: user.id as string | number,
+        };
       }
       return token;
     },
-    session: async ({ session, token }) => {
-      if (token) {
-        session.user.id = token.id as string;
+
+    signIn: async ({ user, account }) => {
+      //   if (account?.provider === "google") {
+      //     try {
+      //       const { email, name, image, id } = user;
+      //       await connectDB();
+      //       const alreadyUser = await User.findOne({ email });
+
+      //       if (!alreadyUser) {
+      //         await User.create({ email, name, image, authProviderId: id });
+      //       } else {
+      //         return true;
+      //       }
+      //     } catch (error) {
+      //       throw new Error("Error while creating user");
+      //     }
+      //   }
+
+      if (account?.provider === "credentials") {
+        return true;
+      } else {
+        return false;
       }
-      return session;
     },
   },
 });
