@@ -36,17 +36,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const user = await getUserByUsername(username);
 
         if (!user) {
-          throw new Error("Invalid username or password");
+          throw new CredentialsSignin("Username not found");
         }
 
         if (!user.password) {
-          throw new Error("Invalid username or password");
+          throw new CredentialsSignin("Password not found");
         }
 
         const isMatched = verifyPassword(password, user.password);
 
         if (!isMatched) {
-          throw new Error("Password did not matched");
+          throw new CredentialsSignin("Password did not match");
         }
 
         const userData = {

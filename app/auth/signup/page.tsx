@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { geistMono } from "@/app/fonts";
 import { signup } from "@/server/sign";
 import { useRouter } from "next/navigation";
+
 const SignUpPage = () => {
   const [visible, setVisible] = useState(false);
   const router = useRouter();

@@ -46,7 +46,7 @@ export const signup = async (formData: FormData) => {
         id: user[0].id,
       },
       shouldRedirect: true,
-      redirectUrl: "/auth/signin",
+      redirectUrl: "/auth/signin?success=true",
     };
   } catch (error) {
     console.error("Signup error:", error);
@@ -67,7 +67,18 @@ export const signup = async (formData: FormData) => {
   }
 };
 
-export const signin = async (formData: FormData) => {
+interface SigninResponse {
+  success: boolean;
+  message?: string;
+  user?: {
+    username: string;
+    id: string;
+  };
+  shouldRedirect?: boolean;
+  redirectUrl?: string;
+  error?: string;
+}
+export const signin = async (formData: FormData): Promise<SigninResponse> => {
   try {
     // Validate inputs
     const validated = CredentialsSchema.safeParse({
@@ -78,7 +89,7 @@ export const signin = async (formData: FormData) => {
     if (!validated.success) {
       return {
         success: false,
-        error: "Invalid credentials format",
+        error: "Input should be min 3 characters and max 20 characters",
       };
     }
 
@@ -90,6 +101,7 @@ export const signin = async (formData: FormData) => {
       password,
       redirect: false,
     });
+
     // If we get here, signin was successful
     return {
       success: true,
@@ -102,13 +114,12 @@ export const signin = async (formData: FormData) => {
       redirectUrl: "/",
     };
   } catch (error) {
-    console.error("Signin error:", error);
-
     // Handle specific auth errors
+    console.log("error", error);
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return { success: false, error: "Invalid username or password" };
+          return { success: false, error: error.message.split(".")[0] };
         default:
           return { success: false, error: "Authentication failed" };
       }
