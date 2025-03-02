@@ -32,7 +32,10 @@ const ProductAccordion = () => {
           <Categories categories={product?.categories ?? []} />
           <main className="flex gap-4">
             {/* left */}
-            <ProductImages images={product?.image ?? []} />
+            <ProductImages
+              images={product?.image ?? []}
+              key={product?.image?.[0]}
+            />
             {/* right */}
             <div className="flex flex-col gap-2">
               <p className={`text-stone-900 text-2xl font-semibold`}>

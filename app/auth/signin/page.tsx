@@ -63,7 +63,9 @@ const SignInPage = () => {
         )}
         <div className="p-4 mt-8">
           <p className="text-xl font-bold">
-            {success ? "Signin successful" : "Nice to see you again!"}
+            {success
+              ? "Account created successfully 🥳"
+              : "Nice to see you again!"}
           </p>
           <form className="mt-8 flex flex-col gap-6" action={handleSignin}>
             <div className="grid w-full items-center gap-2">

@@ -7,6 +7,8 @@ export const usersTable = pgTable("users_table", {
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
+  email: text("email").unique(),
+  image: text("image"),
   password: text("password"),
   openaiApiKey: text("openai_api_key"),
   createdAt: timestamp("created_at").notNull().defaultNow(),

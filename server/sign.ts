@@ -12,7 +12,18 @@ const CredentialsSchema = z.object({
   password: z.string().min(3).max(100),
 });
 
-export const signup = async (formData: FormData) => {
+interface SigninResponse {
+  success: boolean;
+  message?: string;
+  user?: {
+    username: string;
+    id: string;
+  };
+  shouldRedirect?: boolean;
+  redirectUrl?: string;
+  error?: string;
+}
+export const signup = async (formData: FormData): Promise<SigninResponse> => {
   try {
     // Validate inputs
     const validated = CredentialsSchema.safeParse({
@@ -23,8 +34,7 @@ export const signup = async (formData: FormData) => {
     if (!validated.success) {
       return {
         success: false,
-        error:
-          "Username must be 3-20 characters and password must be 8-100 characters",
+        error: "Input should be min 3 characters and max 20 characters",
       };
     }
 
@@ -67,17 +77,6 @@ export const signup = async (formData: FormData) => {
   }
 };
 
-interface SigninResponse {
-  success: boolean;
-  message?: string;
-  user?: {
-    username: string;
-    id: string;
-  };
-  shouldRedirect?: boolean;
-  redirectUrl?: string;
-  error?: string;
-}
 export const signin = async (formData: FormData): Promise<SigninResponse> => {
   try {
     // Validate inputs

@@ -10,11 +10,12 @@ import Google from "@/svg/google";
 import Link from "next/link";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { geistMono } from "@/app/fonts";
 import { signup } from "@/server/sign";
 import { useRouter } from "next/navigation";
+import Warning from "@/svg/warning";
 
 const SignUpPage = () => {
   const [visible, setVisible] = useState(false);
@@ -23,12 +24,21 @@ const SignUpPage = () => {
     e.preventDefault();
     setVisible((prev) => !prev);
   };
+  const [error, setError] = useState("");
   const handleSignup = async (formData: FormData) => {
     const result = await signup(formData);
-    if (result.success && result.shouldRedirect) {
+    if (result.success && result.shouldRedirect && result.redirectUrl) {
       router.push(result.redirectUrl);
     }
+    if (result.error) {
+      setError(result.error);
+    }
   };
+  useEffect(() => {
+    setTimeout(() => {
+      setError("");
+    }, 5000);
+  }, [error]);
   return (
     <>
       <div className="col-span-5">
@@ -41,7 +51,13 @@ const SignUpPage = () => {
           />
         </AspectRatio>
       </div>
-      <div className="col-span-4 h-full">
+      <div className="col-span-4 h-full relative">
+        {error && (
+          <div className="flex items-center gap-2 absolute top-4 left-4">
+            <Warning className="text-red-500 size-6" />
+            <p className="text-red-500 font-bold text-sm">{error}</p>
+          </div>
+        )}
         <div className="p-4 mt-8">
           <p className="text-xl font-bold">Create an account</p>
           <form className="mt-8 flex flex-col gap-6" action={handleSignup}>
@@ -57,9 +73,11 @@ const SignUpPage = () => {
                 id="username"
                 name="username"
                 placeholder="Username"
+                onClick={() => setError("")}
                 className={cn(
                   "bg-stone-100 py-6 px-4 rounded-md text-sm font-semibold",
-                  geistMono.className
+                  geistMono.className,
+                  error && "border-red-500 bg-red-50"
                 )}
               />
             </div>
@@ -76,9 +94,11 @@ const SignUpPage = () => {
                   id="password"
                   name="password"
                   placeholder="Enter password"
+                  onClick={() => setError("")}
                   className={cn(
                     "bg-stone-100 py-6 px-4 rounded-md text-sm font-semibold",
-                    geistMono.className
+                    geistMono.className,
+                    error && "border-red-500 bg-red-50"
                   )}
                 />
                 <span
