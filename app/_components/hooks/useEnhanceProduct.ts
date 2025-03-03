@@ -5,6 +5,7 @@ import {
   productStore,
   ProductEnhancements,
 } from "@/app/store/productStore";
+import { enhanceDetails } from "@/utils/amazon/enhance-details";
 export const useEnhanceProduct = (asin: string | undefined) => {
   const { setProductEnhancements, product } = productStore();
   const [loading, setLoading] = useState(false);
@@ -24,8 +25,14 @@ export const useEnhanceProduct = (asin: string | undefined) => {
           highlights: data.enhancements.highlights,
         },
         specifications: {
-          technical: data.enhancements.technical,
-          additional: data.enhancements.additional,
+          technical: enhanceDetails(
+            product?.specifications?.technical || {},
+            data.enhancements.technical
+          ),
+          additional: enhanceDetails(
+            product?.specifications?.additional || {},
+            data.enhancements.additional
+          ),
         },
         source: data.enhancements.source,
       };

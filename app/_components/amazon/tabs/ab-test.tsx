@@ -1,5 +1,5 @@
 "use client";
-import { ptSerif } from "@/app/fonts";
+import { geistMono, ptSerif } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import React from "react";
 import ProductInformation from "../product-information/product-information";
@@ -9,6 +9,7 @@ import ThumbnailAccordion from "../accordion/thumbnail";
 import { productStore } from "@/app/store/productStore";
 import { Button } from "@/components/ui/button";
 import { useEnhanceProduct } from "../../hooks/useEnhanceProduct";
+import Link from "next/link";
 
 const AbTest = () => {
   const { product, asin, productEnhancements } = productStore();
@@ -64,7 +65,7 @@ const AbTest = () => {
               "text-lg text-center py-3 bg-white z-10"
             )}
           >
-            AI Generated Copy
+            AI Enhanced Copy ✨
           </p>
           <div className="overflow-y-auto p-4 flex-1">
             {/* AI generated content goes here */}
@@ -77,9 +78,34 @@ const AbTest = () => {
               </>
             ) : (
               contnetNull
-            )}
+            )}{" "}
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-4 w-[100vw]">
+        {productEnhancements?.source && (
+          <div className={cn("px-3 flex gap-2", geistMono.className)}>
+            <p className="text-xs text-stone-500">Sources :</p>
+            <Link
+              href={productEnhancements.source}
+              target="_blank"
+              className={cn(
+                "text-xs bg-blue-100 rounded-md hover:bg-blue-200 transition-all duration-300 z-10 text-blue-700 line-clamp-1 max-w-[400px] w-fit px-4 font-semibold"
+              )}
+            >
+              {productEnhancements.source}
+            </Link>
+            <Link
+              href={`https://www.amazon.in/dp/${asin}`}
+              target="_blank"
+              className={cn(
+                "text-xs bg-blue-100 rounded-md hover:bg-blue-200 transition-all duration-300 z-10 text-blue-700 line-clamp-1 max-w-[400px] w-fit px-4 font-semibold"
+              )}
+            >
+              {`https://www.amazon.in/dp/${asin}`}
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
