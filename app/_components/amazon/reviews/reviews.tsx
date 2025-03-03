@@ -13,6 +13,13 @@ import ReviewsList from "./review-list";
 import { Product } from "@/src/api/models/Product";
 
 const Reviews = ({ product }: { product: Product }) => {
+  const [isClient, setIsClient] = React.useState(false);
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+  if (!isClient) {
+    return null;
+  }
   return (
     <Accordion
       type="single"

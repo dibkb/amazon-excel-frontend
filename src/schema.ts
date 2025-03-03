@@ -42,6 +42,7 @@ export const abTestsTable = pgTable("ab_tests_table", {
   id: uuid("id")
     .primaryKey()
     .default(sql`gen_random_uuid()`),
+  asin: text("asin").notNull(),
   userId: uuid("user_id")
     .notNull()
     .references(() => usersTable.id, { onDelete: "cascade" }),

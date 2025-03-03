@@ -1,3 +1,4 @@
+"use client";
 import { formatIndian } from "@/utils/amazon/format-number";
 import { BadgePercent } from "lucide-react";
 import React from "react";

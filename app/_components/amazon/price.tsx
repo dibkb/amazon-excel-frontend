@@ -1,3 +1,4 @@
+"use client";
 import { formatIndian } from "@/utils/amazon/format-number";
 import React from "react";
 

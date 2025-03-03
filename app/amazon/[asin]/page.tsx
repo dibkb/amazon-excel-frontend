@@ -4,33 +4,34 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Product from "@/app/_components/amazon/tabs/product";
 import Sowt from "@/app/_components/amazon/tabs/swot";
 import Improvements from "@/app/_components/amazon/tabs/improvements";
-import { use, useEffect } from "react";
+import { use, useEffect, useState } from "react";
 import { useFetchProductData } from "@/app/_components/hooks/useFetchProductData";
 import { useFetchImprovements } from "@/app/_components/hooks/useFetchImprvements";
 // import { useMakeSocket } from "@/app/_components/hooks/useMakeSocket";
-import { getUserByUsername } from "@/db/query/users";
 import AbTest from "@/app/_components/amazon/tabs/ab-test";
 import { productStore } from "@/app/store/productStore";
 import { Skeleton } from "@/components/ui/skeleton";
+import React from "react";
 // Create a wrapper component that uses session
 function AsinContent({ asin }: { asin: string }) {
-  // Hooks that need session
   useFetchProductData(asin);
   useFetchImprovements(asin);
+
+  // Hooks that need session
+
   // useMakeSocket();
 
   const { loadingProduct } = productStore();
 
-  const { data: session } = useSession();
-  console.log(session);
-  useEffect(() => {
-    async function fetchUser() {
-      const user = await getUserByUsername("test");
-      console.log("user", user);
-    }
-    fetchUser();
-  }, []);
+  // const { data: session } = useSession();
+  const [isClient, setIsClient] = useState(false);
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  if (!isClient) {
+    return null;
+  }
   if (loadingProduct) {
     return (
       <div className="flex flex-col gap-8 mt-[60px]">
@@ -39,7 +40,6 @@ function AsinContent({ asin }: { asin: string }) {
       </div>
     );
   }
-
   return (
     <Tabs defaultValue="product" className="w-full mt-[60px]">
       <TabsList className="grid w-[900px] grid-cols-5 mx-auto sticky z-10">

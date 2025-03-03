@@ -8,8 +8,17 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Product } from "@/src/api/models/Product";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const ProductHighlights = ({ product }: { product: Product }) => {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  if (!isClient) {
+    return null;
+  }
   const content = product?.description?.highlights?.map((highlight) => (
     <li key={highlight} className="flex items-start gap-2">
       <ChevronRightSvg />

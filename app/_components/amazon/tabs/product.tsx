@@ -10,6 +10,16 @@ import { productStore } from "@/app/store/productStore";
 
 const Product = () => {
   const { product, asin } = productStore();
+  const [isClient, setIsClient] = React.useState(false);
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+  if (!isClient) {
+    return null;
+  }
+  if (!product) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <div>

@@ -14,6 +14,13 @@ const Navbar = () => {
       image: string;
     };
   };
+  const [isClient, setIsClient] = React.useState(false);
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+  if (!isClient) {
+    return null;
+  }
   const userName = session?.user?.username?.charAt(0).toUpperCase();
   return (
     <div className="flex flex-col justify-center py-4 fixed top-0 left-0 right-0 z-50 bg-white border-b border-stone-200 h-[60px]">

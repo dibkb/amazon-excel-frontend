@@ -8,8 +8,15 @@ import {
 } from "@/components/ui/accordion";
 import ProductRow from "./product-row";
 import { Product } from "@/src/api/models/Product";
-
+import React from "react";
 const ProductInformation = ({ product }: { product: Product }) => {
+  const [isClient, setIsClient] = React.useState(false);
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+  if (!isClient) {
+    return null;
+  }
   return (
     <Accordion
       type="single"

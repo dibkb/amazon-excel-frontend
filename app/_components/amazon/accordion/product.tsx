@@ -23,6 +23,13 @@ const ProductAccordion = ({
   product: Product;
   swot?: boolean;
 }) => {
+  const [isClient, setIsClient] = React.useState(false);
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+  if (!isClient) {
+    return null;
+  }
   return (
     <Accordion
       type="single"

@@ -18,6 +18,12 @@ const nextConfig: NextConfig = {
       {
         hostname: "images.pexels.com",
       },
+      {
+        hostname: "tenor.com",
+      },
+      {
+        hostname: "media.tenor.com",
+      },
     ],
   },
 };

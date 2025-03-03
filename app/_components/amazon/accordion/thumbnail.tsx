@@ -25,11 +25,15 @@ const calculateDeliveryDate = () => {
 };
 
 const ThumbnailAccordion = ({ product }: { product: Product }) => {
+  const [isClient, setIsClient] = React.useState(false);
   // Initialize with null to avoid hydration mismatch
   const [clientSideData, setClientSideData] = React.useState<{
     deliveryDate: string;
     stock: number;
   } | null>(null);
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Run only once after initial render on client
   React.useEffect(() => {
@@ -38,6 +42,9 @@ const ThumbnailAccordion = ({ product }: { product: Product }) => {
       stock: Math.floor(Math.random() * 5) + 1,
     });
   }, []);
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <Accordion

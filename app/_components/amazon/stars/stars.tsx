@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Ratings } from "@/src/api";
 import { Star } from "lucide-react";

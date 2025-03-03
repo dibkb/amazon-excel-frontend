@@ -1,3 +1,4 @@
+"use client";
 import { constructImageUrl } from "@/utils/amazon/construct-image-url";
 import React from "react";
 import Image from "next/image";
