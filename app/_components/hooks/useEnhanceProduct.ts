@@ -1,7 +1,10 @@
 import api from "@/src/axios/base";
 import { useCallback, useState } from "react";
-import { ProductEnhancements, productStore } from "@/app/store/productStore";
-import { Product } from "@/src/api/models/Product";
+import {
+  ApiResponseEnhancements,
+  productStore,
+  ProductEnhancements,
+} from "@/app/store/productStore";
 export const useEnhanceProduct = (asin: string | undefined) => {
   const { setProductEnhancements, product } = productStore();
   const [loading, setLoading] = useState(false);
@@ -12,9 +15,9 @@ export const useEnhanceProduct = (asin: string | undefined) => {
       const { data } = (await api.get(
         `/amazon/product-enhancements/${asin}`
       )) as {
-        data: ProductEnhancements;
+        data: ApiResponseEnhancements;
       };
-      const productEnhanced: Product = {
+      const productEnhanced: ProductEnhancements = {
         ...product,
         title: data.enhancements.title,
         description: {
@@ -24,6 +27,7 @@ export const useEnhanceProduct = (asin: string | undefined) => {
           technical: data.enhancements.technical,
           additional: data.enhancements.additional,
         },
+        source: data.enhancements.source,
       };
 
       setProductEnhancements(productEnhanced);

@@ -4,11 +4,17 @@ import { Product } from "@/src/api";
 import { useEffect } from "react";
 import { productStore } from "@/app/store/productStore";
 export const useFetchProductData = (asin: string) => {
-  const { setProduct, setLoadingProduct, setErrorProduct, setAsin } =
-    productStore();
+  const {
+    setProduct,
+    setLoadingProduct,
+    setErrorProduct,
+    setAsin,
+    setProductEnhancements,
+  } = productStore();
   useEffect(() => {
     const fetchData = async () => {
       setLoadingProduct(true);
+      setProductEnhancements(null);
       setErrorProduct(null);
       try {
         const { data } = (await api.get(`/amazon/${asin}`)) as {
@@ -23,5 +29,12 @@ export const useFetchProductData = (asin: string) => {
       }
     };
     fetchData();
-  }, [asin, setProduct, setLoadingProduct, setErrorProduct, setAsin]);
+  }, [
+    asin,
+    setProduct,
+    setLoadingProduct,
+    setErrorProduct,
+    setAsin,
+    setProductEnhancements,
+  ]);
 };

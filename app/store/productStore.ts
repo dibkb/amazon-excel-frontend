@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import { ProductSageResponse } from "@/src/api/models/ProductSageResponse";
 import { Product } from "@/src/api";
 
-export interface ProductEnhancements {
+export interface ApiResponseEnhancements {
   asin: string;
   enhancements: {
     title: string;
@@ -12,6 +12,9 @@ export interface ProductEnhancements {
     technical: Record<string, string>;
     source: string;
   };
+}
+export interface ProductEnhancements extends Product {
+  source: string;
 }
 interface ProductStore {
   product: Product | null;
@@ -28,8 +31,10 @@ interface ProductStore {
 
   selectedProducts: string[];
   setSelectedProducts: (products: string[]) => void;
-  productEnhancements: Product | null;
-  setProductEnhancements: (productEnhancements: Product) => void;
+  productEnhancements: ProductEnhancements | null;
+  setProductEnhancements: (
+    productEnhancements: ProductEnhancements | null
+  ) => void;
 }
 
 export const productStore = create<ProductStore>()(
@@ -51,8 +56,9 @@ export const productStore = create<ProductStore>()(
       setSelectedProducts: (products: string[]) =>
         set({ selectedProducts: products }),
       productEnhancements: null,
-      setProductEnhancements: (productEnhancements: Product) =>
-        set({ productEnhancements }),
+      setProductEnhancements: (
+        productEnhancements: ProductEnhancements | null
+      ) => set({ productEnhancements }),
     }),
     {
       name: "ecommerce/excel",
