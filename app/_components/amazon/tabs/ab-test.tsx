@@ -48,12 +48,7 @@ const AbTest = () => {
     if (!product || !productEnhancements) {
       return;
     }
-    const result = await publishBranch(
-      userId,
-      asin,
-      product,
-      productEnhancements
-    );
+    const result = await publishBranch(userId, asin);
     if (result.success) {
       setTestid(result.id);
     }

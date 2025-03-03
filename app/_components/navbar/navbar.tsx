@@ -3,10 +3,16 @@ import { geistMono } from "@/app/fonts";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SessionProvider, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useSelectedLayoutSegments } from "next/navigation";
 // import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
+
+function shouldShowNavbar(segments: string[]) {
+  return !segments.includes("ab-test");
+}
 
 const Navbar = () => {
+  const segments = useSelectedLayoutSegments();
   const { data: _session } = useSession();
   const session = _session as unknown as {
     user: {
@@ -15,10 +21,13 @@ const Navbar = () => {
     };
   };
   const [isClient, setIsClient] = React.useState(false);
-  React.useEffect(() => {
+  useEffect(() => {
     setIsClient(true);
   }, []);
   if (!isClient) {
+    return null;
+  }
+  if (!shouldShowNavbar(segments)) {
     return null;
   }
   const userName = session?.user?.username?.charAt(0).toUpperCase();

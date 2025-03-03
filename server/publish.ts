@@ -5,19 +5,12 @@ import { Product } from "@/src/api/models/Product";
 import { db } from "@/src/db";
 import { abTestsTable } from "@/src/schema";
 
-export const publishBranch = async (
-  userId: string,
-  asin: string,
-  original: Product,
-  aiEnhanced: ProductEnhancements
-) => {
+export const publishBranch = async (userId: string, asin: string) => {
   const test = await db
     .insert(abTestsTable)
     .values({
       userId: userId,
       asin: asin,
-      original: original,
-      aiEnhanced: aiEnhanced,
     })
     .returning();
   return {

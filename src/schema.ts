@@ -1,12 +1,5 @@
 import { sql } from "drizzle-orm";
-import {
-  pgEnum,
-  pgTable,
-  text,
-  timestamp,
-  uuid,
-  jsonb,
-} from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 export const typeEnum = pgEnum("type", ["swot", "improvement", "other"]);
 
 export const usersTable = pgTable("users_table", {
@@ -46,8 +39,6 @@ export const abTestsTable = pgTable("ab_tests_table", {
   userId: uuid("user_id")
     .notNull()
     .references(() => usersTable.id, { onDelete: "cascade" }),
-  original: jsonb("original").notNull(),
-  aiEnhanced: jsonb("ai_enhanced").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
@@ -61,12 +52,18 @@ export const abTestReviewsTable = pgTable("ab_test_reviews_table", {
   abTestId: uuid("ab_test_id")
     .notNull()
     .references(() => abTestsTable.id, { onDelete: "cascade" }),
+
   thumbnail: thumbnailTypeEnum("thumbnail"),
   product: productTypeEnum("product"),
+
   name: text("name"),
   review: text("review"),
-  location: text("location"),
+  latitude: text("latitude"),
+  longitude: text("longitude"),
+  city: text("city"),
+  country: text("country"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
+
   updatedAt: timestamp("updated_at")
     .notNull()
     .$onUpdate(() => new Date()),

@@ -18,3 +18,19 @@ export async function getTest(
     });
   return test;
 }
+
+export async function getTestById(
+  testId: SelectABTest["id"]
+): Promise<SelectABTest | undefined> {
+  const test = await db
+    .select()
+    .from(abTestsTable)
+    .where(eq(abTestsTable.id, testId))
+    .then((res) => {
+      if (res.length > 0) {
+        return res[0];
+      }
+      return undefined;
+    });
+  return test;
+}
