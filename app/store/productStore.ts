@@ -6,6 +6,8 @@ import { Product } from "@/src/api";
 interface ProductStore {
   product: Product | null;
   setProduct: (product: Product) => void;
+  aiProduct: Product | null;
+  setAiProduct: (aiProduct: Product) => void;
   loadingProduct: boolean;
   setLoadingProduct: (loading: boolean) => void;
   errorProduct: string | null;
@@ -24,6 +26,8 @@ export const productStore = create<ProductStore>()(
     (set) => ({
       product: null,
       setProduct: (product: Product) => set({ product }),
+      aiProduct: null,
+      setAiProduct: (aiProduct: Product) => set({ aiProduct }),
       loadingProduct: true,
       setLoadingProduct: (loading: boolean) => set({ loadingProduct: loading }),
       errorProduct: null,

@@ -13,10 +13,16 @@ import Offers from "../offers";
 import Service from "../service";
 import Categories from "../categories";
 import Price from "../price";
-import { productStore } from "@/app/store/productStore";
+import { Product } from "@/src/api/models/Product";
+import { cn } from "@/lib/utils";
 
-const ProductAccordion = () => {
-  const { product } = productStore();
+const ProductAccordion = ({
+  product,
+  swot = false,
+}: {
+  product: Product;
+  swot?: boolean;
+}) => {
   return (
     <Accordion
       type="single"
@@ -30,7 +36,7 @@ const ProductAccordion = () => {
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-3">
           <Categories categories={product?.categories ?? []} />
-          <main className="flex gap-4">
+          <main className={cn("flex gap-4", swot && "flex-col")}>
             {/* left */}
             <ProductImages
               images={product?.image ?? []}

@@ -20,11 +20,11 @@ const Product = () => {
         </p>
         {product && (
           <>
-            <ThumbnailAccordion />
-            <ProductAccordion />
-            <ProductHighlights />
-            <ProductInformation />
-            <Reviews />
+            <ThumbnailAccordion product={product} />
+            <ProductAccordion product={product} />
+            <ProductHighlights product={product} />
+            <ProductInformation product={product} />
+            <Reviews product={product} />
           </>
         )}
       </div>

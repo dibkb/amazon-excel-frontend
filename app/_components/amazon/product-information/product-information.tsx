@@ -7,10 +7,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import ProductRow from "./product-row";
-import { productStore } from "@/app/store/productStore";
+import { Product } from "@/src/api/models/Product";
 
-const ProductInformation = () => {
-  const { product } = productStore();
+const ProductInformation = ({ product }: { product: Product }) => {
   return (
     <Accordion
       type="single"

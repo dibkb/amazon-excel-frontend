@@ -7,15 +7,19 @@ import Improvements from "@/app/_components/amazon/tabs/improvements";
 import { use, useEffect } from "react";
 import { useFetchProductData } from "@/app/_components/hooks/useFetchProductData";
 import { useFetchImprovements } from "@/app/_components/hooks/useFetchImprvements";
-import { useMakeSocket } from "@/app/_components/hooks/useMakeSocket";
+// import { useMakeSocket } from "@/app/_components/hooks/useMakeSocket";
 import { getUserByUsername } from "@/db/query/users";
-
+import AbTest from "@/app/_components/amazon/tabs/ab-test";
+import { productStore } from "@/app/store/productStore";
+import { Skeleton } from "@/components/ui/skeleton";
 // Create a wrapper component that uses session
 function AsinContent({ asin }: { asin: string }) {
   // Hooks that need session
   useFetchProductData(asin);
   useFetchImprovements(asin);
-  useMakeSocket();
+  // useMakeSocket();
+
+  const { loadingProduct } = productStore();
 
   const { data: session } = useSession();
   console.log(session);
@@ -26,6 +30,15 @@ function AsinContent({ asin }: { asin: string }) {
     }
     fetchUser();
   }, []);
+
+  if (loadingProduct) {
+    return (
+      <div className="flex flex-col gap-8 mt-[60px]">
+        <Skeleton className="h-[300px]" />
+        <Skeleton className="h-[500px]" />
+      </div>
+    );
+  }
 
   return (
     <Tabs defaultValue="product" className="w-full mt-[60px]">
@@ -55,7 +68,7 @@ function AsinContent({ asin }: { asin: string }) {
         <Sowt />
       </TabsContent>
       <TabsContent value="ab-test">
-        <div>ab-test</div>
+        <AbTest />
       </TabsContent>
       <TabsContent value="dashboard">
         <div>dashboard</div>

@@ -54,7 +54,6 @@ export default function Home() {
           Leverage data-driven product analysis, competitor SWOT insights, and
           A/B testing to refine your listings and boost conversions.
         </p>
-
         <form
           className="flex flex-col items-center justify-center gap-2 w-full max-w-[700px] mt-20 relative"
           onSubmit={(e) => {
@@ -99,6 +98,11 @@ export default function Home() {
             </button>
           </div>
         </form>
+        <div className="mt-12">
+          <p className="font-medium text-stone-600 text-sm">
+            Top Picks at a Glance
+          </p>
+        </div>
       </section>
     </main>
   );

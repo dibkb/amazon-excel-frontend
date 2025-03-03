@@ -10,10 +10,9 @@ import { geistMono } from "@/app/fonts";
 import Stars from "../stars/stars";
 import Ratingbar from "./rating-bar";
 import ReviewsList from "./review-list";
-import { productStore } from "@/app/store/productStore";
+import { Product } from "@/src/api/models/Product";
 
-const Reviews = () => {
-  const { product } = productStore();
+const Reviews = ({ product }: { product: Product }) => {
   return (
     <Accordion
       type="single"
