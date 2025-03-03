@@ -10,7 +10,6 @@ import Google from "@/svg/google";
 import Link from "next/link";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
-
 import React, { Suspense, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { geistMono } from "@/app/fonts";
@@ -18,7 +17,7 @@ import { signin } from "@/server/sign";
 import { useRouter, useSearchParams } from "next/navigation";
 import Warning from "@/svg/warning";
 
-const SignInPage = () => {
+const SignInContent = () => {
   const searchParams = useSearchParams();
   const success = searchParams.get("success");
   const router = useRouter();
@@ -43,7 +42,7 @@ const SignInPage = () => {
     }, 5000);
   }, [error]);
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <>
       <div className="col-span-5 max-h-full">
         <AspectRatio ratio={1} className="bg-muted">
           <Image
@@ -156,6 +155,14 @@ const SignInPage = () => {
           </form>
         </div>
       </div>
+    </>
+  );
+};
+
+const SignInPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignInContent />
     </Suspense>
   );
 };
