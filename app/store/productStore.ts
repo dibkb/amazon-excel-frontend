@@ -3,11 +3,20 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import { ProductSageResponse } from "@/src/api/models/ProductSageResponse";
 import { Product } from "@/src/api";
 
+export interface ProductEnhancements {
+  asin: string;
+  enhancements: {
+    title: string;
+    highlights: Array<string>;
+    additional: Record<string, string>;
+    technical: Record<string, string>;
+    source: string;
+  };
+}
 interface ProductStore {
   product: Product | null;
   setProduct: (product: Product) => void;
-  aiProduct: Product | null;
-  setAiProduct: (aiProduct: Product) => void;
+
   loadingProduct: boolean;
   setLoadingProduct: (loading: boolean) => void;
   errorProduct: string | null;
@@ -19,6 +28,8 @@ interface ProductStore {
 
   selectedProducts: string[];
   setSelectedProducts: (products: string[]) => void;
+  productEnhancements: Product | null;
+  setProductEnhancements: (productEnhancements: Product) => void;
 }
 
 export const productStore = create<ProductStore>()(
@@ -26,8 +37,7 @@ export const productStore = create<ProductStore>()(
     (set) => ({
       product: null,
       setProduct: (product: Product) => set({ product }),
-      aiProduct: null,
-      setAiProduct: (aiProduct: Product) => set({ aiProduct }),
+
       loadingProduct: true,
       setLoadingProduct: (loading: boolean) => set({ loadingProduct: loading }),
       errorProduct: null,
@@ -40,6 +50,9 @@ export const productStore = create<ProductStore>()(
       selectedProducts: [],
       setSelectedProducts: (products: string[]) =>
         set({ selectedProducts: products }),
+      productEnhancements: null,
+      setProductEnhancements: (productEnhancements: Product) =>
+        set({ productEnhancements }),
     }),
     {
       name: "ecommerce/excel",

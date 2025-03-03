@@ -57,6 +57,7 @@ const ThumbnailAccordion = ({ product }: { product: Product }) => {
               alt={product?.title || "Product thumbnail"}
               width={200}
               height={200}
+              className="min-w-[200px] min-h-[200px]"
             />
             <div
               className={`${manrope.className} text-stone-700 flex flex-col gap-2`}

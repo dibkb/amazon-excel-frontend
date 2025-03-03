@@ -8,9 +8,11 @@ import ProductAccordion from "../accordion/product";
 import ThumbnailAccordion from "../accordion/thumbnail";
 import { productStore } from "@/app/store/productStore";
 import { Button } from "@/components/ui/button";
+import { useEnhanceProduct } from "../../hooks/useEnhanceProduct";
 
 const AbTest = () => {
-  const { product, aiProduct } = productStore();
+  const { product, asin, productEnhancements } = productStore();
+  const { enhanceProduct, loading } = useEnhanceProduct(asin);
   const contnetNull = (
     <div className="flex flex-col gap-2">
       <p className="text-start text-stone-500 text-sm font-medium">
@@ -18,12 +20,17 @@ const AbTest = () => {
         eye-catching thumbnail using our advanced AI tool. Elevate your Amazon
         listing in just one click.
       </p>
-      <Button className="w-fit text-sm font-semibold mt-4 bg-blue-500 text-white hover:bg-blue-600 transition-all duration-300">
+      <Button
+        className="w-fit text-sm font-semibold mt-4 bg-blue-500 text-white hover:bg-blue-600 transition-all duration-300"
+        onClick={enhanceProduct}
+      >
         Generate Content
       </Button>
-      {/* <p className="text-start text-stone-500 text-sm font-medium">
-        Please wait while we generate the content
-      </p> */}
+      {loading && (
+        <p className="text-start text-stone-500 text-sm font-medium">
+          Please wait while we generate the content
+        </p>
+      )}
     </div>
   );
   return (
@@ -61,12 +68,12 @@ const AbTest = () => {
           </p>
           <div className="overflow-y-auto p-4 flex-1">
             {/* AI generated content goes here */}
-            {aiProduct ? (
+            {productEnhancements ? (
               <>
-                <ThumbnailAccordion product={aiProduct} />
-                <ProductAccordion product={aiProduct} swot={true} />
-                <ProductHighlights product={aiProduct} />
-                <ProductInformation product={aiProduct} />
+                <ThumbnailAccordion product={productEnhancements} />
+                <ProductAccordion product={productEnhancements} swot={true} />
+                <ProductHighlights product={productEnhancements} />
+                <ProductInformation product={productEnhancements} />
               </>
             ) : (
               contnetNull
