@@ -11,7 +11,7 @@ import Link from "next/link";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { geistMono } from "@/app/fonts";
 import { signin } from "@/server/sign";
@@ -43,7 +43,7 @@ const SignInPage = () => {
     }, 5000);
   }, [error]);
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <div className="col-span-5 max-h-full">
         <AspectRatio ratio={1} className="bg-muted">
           <Image
@@ -156,7 +156,7 @@ const SignInPage = () => {
           </form>
         </div>
       </div>
-    </>
+    </Suspense>
   );
 };
 
