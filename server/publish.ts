@@ -1,9 +1,11 @@
 "use server";
 
-import { ProductEnhancements } from "@/app/store/productStore";
-import { Product } from "@/src/api/models/Product";
 import { db } from "@/src/db";
-import { abTestsTable } from "@/src/schema";
+import {
+  abTestReviewsTable,
+  abTestsTable,
+  InsertABTestReview,
+} from "@/src/schema";
 
 export const publishBranch = async (userId: string, asin: string) => {
   const test = await db
@@ -17,5 +19,37 @@ export const publishBranch = async (userId: string, asin: string) => {
     success: true,
     message: "Branch published successfully",
     id: test[0].id,
+  };
+};
+
+export const submitTestResults = async ({
+  abTestId,
+  name,
+  latitude,
+  longitude,
+  city,
+  country,
+  thumbnail,
+  product,
+  review,
+}: InsertABTestReview) => {
+  const result = await db
+    .insert(abTestReviewsTable)
+    .values({
+      abTestId: abTestId,
+      name: name,
+      thumbnail: thumbnail,
+      product: product,
+      latitude: latitude,
+      longitude: longitude,
+      city: city,
+      country: country,
+      review: review,
+    })
+    .returning();
+  return {
+    success: true,
+    message: "Test results submitted successfully",
+    id: result[0].id,
   };
 };

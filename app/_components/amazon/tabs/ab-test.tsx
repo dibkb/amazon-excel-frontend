@@ -16,6 +16,7 @@ import { publishBranch } from "@/server/publish";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { getTest } from "@/db/query/test";
+import ThumbnailAccordion from "../accordion/thumbnail";
 
 const AbTest = () => {
   const { product, asin, productEnhancements } = productStore();
@@ -118,7 +119,7 @@ const AbTest = () => {
             {/* Original content goes here */}
             {product && (
               <>
-                {/* <ThumbnailAccordion product={product} /> */}
+                <ThumbnailAccordion product={product} />
                 <ProductAccordion product={product} swot={true} />
                 <ProductHighlights product={product} />
                 <ProductInformation product={product} />
@@ -139,7 +140,7 @@ const AbTest = () => {
             {/* AI generated content goes here */}
             {productEnhancements ? (
               <>
-                {/* <ThumbnailAccordion product={productEnhancements} /> */}
+                <ThumbnailAccordion product={productEnhancements} />
                 <ProductAccordion product={productEnhancements} swot={true} />
                 <ProductHighlights product={productEnhancements} />
                 <ProductInformation product={productEnhancements} />
