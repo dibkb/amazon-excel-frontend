@@ -64,6 +64,11 @@ const WebsiteReviews = () => {
                 ))}
               </ul>
             </div>
+            <div className="flex gap-4 text-blue-700 font-bold w-fit px-4 py-1 rounded-md bg-blue-100 justify-center items-center">
+              <p className={cn("text-sm", geistMono.className)}>
+                Score: {reviews.review.overall_rating}/10
+              </p>
+            </div>
             <Link
               href={reviews.source}
               className={cn(
