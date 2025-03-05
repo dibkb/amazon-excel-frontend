@@ -24,6 +24,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "media.tenor.com",
       },
+      {
+        hostname: "serpapi.com",
+      },
     ],
   },
 };

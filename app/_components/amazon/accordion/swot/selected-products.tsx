@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { geistMono, manrope } from "@/app/fonts";
 import { AmazonProductResponse } from "@/src/api/models/AmazonProductResponse";
 import { productStore } from "@/app/store/productStore";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const emojiMap = {
   checked: "✅",
@@ -53,8 +54,9 @@ const SelectedProducts = ({ relatedProducts }: SelectedProductsProps) => {
           alt="Thumbnail"
           width={150}
           height={150}
-          className="rounded-md"
+          className="rounded-md max-w-[150px] max-h-[150px]"
         />
+
         <div
           className={cn(
             `${manrope.className} text-stone-700 flex flex-col gap-2`,

@@ -1,9 +1,9 @@
+import { Product } from "@/src/api/models/Product";
 import {
   ApiResponseEnhancements,
   ProductEnhancements,
 } from "@/app/store/productStore";
 import { getTestById } from "@/db/query/test";
-import { Product } from "@/src/api";
 import api from "@/src/axios/base";
 import { enhanceDetails } from "@/utils/amazon/enhance-details";
 import { useEffect, useState } from "react";

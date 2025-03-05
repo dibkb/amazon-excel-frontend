@@ -67,7 +67,7 @@ const SuggestedImprovements = () => {
     >
       <AccordionItem value="thumbnail">
         <AccordionTrigger className={`${geistMono.className} text-stone-700`}>
-          Suggested Improvements
+          Suggested Improvements (Amazon Page)
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-4 m-6">
           {loadingImprovements ? loadingContent : content}

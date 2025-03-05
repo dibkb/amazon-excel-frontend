@@ -12,10 +12,12 @@ import AbTest from "@/app/_components/amazon/tabs/ab-test";
 import { productStore } from "@/app/store/productStore";
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
+import { useFetchWebsiteReview } from "@/app/_components/hooks/useFetchWebsiteReview";
 // Create a wrapper component that uses session
 function AsinContent({ asin }: { asin: string }) {
   useFetchProductData(asin);
   useFetchImprovements(asin);
+  useFetchWebsiteReview(asin);
 
   // Hooks that need session
 

@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { ProductSageResponse } from "@/src/api/models/ProductSageResponse";
 import { Product } from "@/src/api/models/Product";
+import { ReviewSchema } from "@/src/api/models/ReviewSchema";
 
 export interface ApiResponseEnhancements {
   asin: string;
@@ -37,6 +38,12 @@ interface ProductStore {
   setProductEnhancements: (
     productEnhancements: ProductEnhancements | null
   ) => void;
+
+  websiteReview: Array<ReviewSchema> | null;
+  setWebsiteReview: (websiteReview: Array<ReviewSchema> | null) => void;
+
+  loadingWebsiteReview: boolean;
+  setLoadingWebsiteReview: (loading: boolean) => void;
 }
 
 export const productStore = create<ProductStore>()(
@@ -64,6 +71,12 @@ export const productStore = create<ProductStore>()(
       setProductEnhancements: (
         productEnhancements: ProductEnhancements | null
       ) => set({ productEnhancements }),
+      websiteReview: null,
+      setWebsiteReview: (websiteReview: Array<ReviewSchema> | null) =>
+        set({ websiteReview }),
+      loadingWebsiteReview: true,
+      setLoadingWebsiteReview: (loading: boolean) =>
+        set({ loadingWebsiteReview: loading }),
     }),
     {
       name: "ecommerce/excel",

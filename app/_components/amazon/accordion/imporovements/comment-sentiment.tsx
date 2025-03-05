@@ -70,7 +70,7 @@ const CommentSentiment = () => {
     >
       <AccordionItem value="comments">
         <AccordionTrigger className={`${geistMono.className} text-stone-700`}>
-          Review Analysis
+          Review Analysis (Amazon Page)
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-4 m-6">
           {loadingImprovements ? loadingContent : content}
