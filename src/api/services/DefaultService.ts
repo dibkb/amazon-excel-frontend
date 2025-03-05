@@ -2,8 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AmazonProductResponse } from '../models/AmazonProductResponse';
-import type { ProductSageResponse } from '../models/ProductSageResponse';
+import type { ReviewSchema } from '../models/ReviewSchema';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -22,12 +21,12 @@ export class DefaultService {
     /**
      * Get Amazon Product
      * @param asin
-     * @returns AmazonProductResponse Successful Response
+     * @returns any Successful Response
      * @throws ApiError
      */
     public static getAmazonProductAmazonAsinGet(
         asin: string,
-    ): CancelablePromise<AmazonProductResponse> {
+    ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/amazon/{asin}',
@@ -40,19 +39,19 @@ export class DefaultService {
         });
     }
     /**
-     * Get Amazon Review
-     * @param imageId
+     * Get Amazon Product Sage
+     * @param asin
      * @returns any Successful Response
      * @throws ApiError
      */
-    public static getAmazonReviewAmazonReviewImageIdGet(
-        imageId: string,
+    public static getAmazonProductSageAmazonProductSageAsinGet(
+        asin: string,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/amazon/review/{image_id}',
+            url: '/amazon/product-sage/{asin}',
             path: {
-                'image_id': imageId,
+                'asin': asin,
             },
             errors: {
                 422: `Validation Error`,
@@ -60,19 +59,24 @@ export class DefaultService {
         });
     }
     /**
-     * Get Amazon Product Sage
+     * Get Amazon Product Sage Web Reviewer
      * @param asin
-     * @returns ProductSageResponse Successful Response
+     * @param title
+     * @returns ReviewSchema Successful Response
      * @throws ApiError
      */
-    public static getAmazonProductSageAmazonProductSageAsinGet(
+    public static getAmazonProductSageWebReviewerAmazonProductSageWebReviewerAsinGet(
         asin: string,
-    ): CancelablePromise<ProductSageResponse> {
+        title: string,
+    ): CancelablePromise<Array<ReviewSchema>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/amazon/product-sage/{asin}',
+            url: '/amazon/product-sage/web-reviewer/{asin}',
             path: {
                 'asin': asin,
+            },
+            query: {
+                'title': title,
             },
             errors: {
                 422: `Validation Error`,
@@ -91,6 +95,26 @@ export class DefaultService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/amazon/competitors/{asin}',
+            path: {
+                'asin': asin,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get Amazon Competitors
+     * @param asin
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static getAmazonCompetitorsAmazonProductEnhancementsAsinGet(
+        asin: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/amazon/product-enhancements/{asin}',
             path: {
                 'asin': asin,
             },

@@ -7,18 +7,9 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
-export type { AmazonProductResponse } from './models/AmazonProductResponse';
-export type { Competitor } from './models/Competitor';
-export type { Description } from './models/Description';
 export type { HTTPValidationError } from './models/HTTPValidationError';
-export type { Product } from './models/Product';
-export type { ProductImprovementSchema } from './models/ProductImprovementSchema';
-export type { ProductSageResponse } from './models/ProductSageResponse';
-export type { Ratings } from './models/Ratings';
-export type { RatingStats } from './models/RatingStats';
-export type { SentimentSchema } from './models/SentimentSchema';
-export type { Specifications } from './models/Specifications';
-export type { StarRating } from './models/StarRating';
+export type { ReviewSchema } from './models/ReviewSchema';
 export type { ValidationError } from './models/ValidationError';
+export type { WebsiteReviewSchema } from './models/WebsiteReviewSchema';
 
 export { DefaultService } from './services/DefaultService';

@@ -32,13 +32,13 @@ const AbTest = () => {
       if (userId && asin) {
         const test = await getTest(userId, asin);
         if (test) {
-          setIsLoading(false);
           setTestid(test.id);
         }
       }
     }
     setIsLoading(true);
     getTestData();
+    setIsLoading(false);
   }, [userId, asin]);
 
   async function publishBranchHandler() {

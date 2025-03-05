@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { ProductSageResponse } from "@/src/api/models/ProductSageResponse";
-import { Product } from "@/src/api";
+import { Product } from "@/src/api/models/Product";
 
 export interface ApiResponseEnhancements {
   asin: string;
@@ -26,6 +26,8 @@ interface ProductStore {
   setErrorProduct: (error: string | null) => void;
   asin: string | undefined;
   setAsin: (asin: string) => void;
+  loadingImprovements: boolean;
+  setLoadingImprovements: (loading: boolean) => void;
   improvements: ProductSageResponse | null;
   setImprovements: (improvements: ProductSageResponse) => void;
 
@@ -52,6 +54,9 @@ export const productStore = create<ProductStore>()(
       improvements: null,
       setImprovements: (improvements: ProductSageResponse) =>
         set({ improvements }),
+      loadingImprovements: true,
+      setLoadingImprovements: (loading: boolean) =>
+        set({ loadingImprovements: loading }),
       selectedProducts: [],
       setSelectedProducts: (products: string[]) =>
         set({ selectedProducts: products }),
