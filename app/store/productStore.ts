@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import { ProductSageResponse } from "@/src/api/models/ProductSageResponse";
 import { Product } from "@/src/api/models/Product";
 import { ReviewSchema } from "@/src/api/models/ReviewSchema";
+import { SwotAnalysisConsolidated } from "@/src/api/models/SwotAnalysisConsolidated";
 
 export interface ApiResponseEnhancements {
   asin: string;
@@ -44,6 +45,9 @@ interface ProductStore {
 
   loadingWebsiteReview: boolean;
   setLoadingWebsiteReview: (loading: boolean) => void;
+
+  swot: SwotAnalysisConsolidated | null;
+  setSwot: (swot: SwotAnalysisConsolidated | null) => void;
 }
 
 export const productStore = create<ProductStore>()(
@@ -77,6 +81,9 @@ export const productStore = create<ProductStore>()(
       loadingWebsiteReview: true,
       setLoadingWebsiteReview: (loading: boolean) =>
         set({ loadingWebsiteReview: loading }),
+
+      swot: null,
+      setSwot: (swot: SwotAnalysisConsolidated | null) => set({ swot }),
     }),
     {
       name: "ecommerce/excel",
@@ -86,6 +93,7 @@ export const productStore = create<ProductStore>()(
         product: state.product,
         asin: state.asin,
         improvements: state.improvements,
+        swot: state.swot,
       }),
     }
   )

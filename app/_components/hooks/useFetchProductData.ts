@@ -9,6 +9,8 @@ export const useFetchProductData = (asin: string) => {
     setErrorProduct,
     setAsin,
     setProductEnhancements,
+    setSelectedProducts,
+    setSwot,
   } = productStore();
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +23,8 @@ export const useFetchProductData = (asin: string) => {
         setAsin(asin);
         setProduct(data);
         setLoadingProduct(false);
+        setSelectedProducts([]);
+        setSwot(null);
         setProductEnhancements(null);
       } catch (error) {
         setErrorProduct(error as string);
@@ -35,5 +39,7 @@ export const useFetchProductData = (asin: string) => {
     setErrorProduct,
     setAsin,
     setProductEnhancements,
+    setSelectedProducts,
+    setSwot,
   ]);
 };

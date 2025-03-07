@@ -9,6 +9,8 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { HTTPValidationError } from './models/HTTPValidationError';
 export type { ReviewSchema } from './models/ReviewSchema';
+export type { SwotAnalysisConsolidated } from './models/SwotAnalysisConsolidated';
+export type { SwotAnalysisSchema } from './models/SwotAnalysisSchema';
 export type { ValidationError } from './models/ValidationError';
 export type { WebsiteReviewSchema } from './models/WebsiteReviewSchema';
 

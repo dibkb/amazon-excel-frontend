@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ReviewSchema } from '../models/ReviewSchema';
+import type { SwotAnalysisConsolidated } from '../models/SwotAnalysisConsolidated';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -61,22 +62,17 @@ export class DefaultService {
     /**
      * Get Amazon Product Sage Web Reviewer
      * @param asin
-     * @param title
      * @returns ReviewSchema Successful Response
      * @throws ApiError
      */
     public static getAmazonProductSageWebReviewerAmazonProductSageWebReviewerAsinGet(
         asin: string,
-        title: string,
     ): CancelablePromise<Array<ReviewSchema>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/amazon/product-sage/web-reviewer/{asin}',
             path: {
                 'asin': asin,
-            },
-            query: {
-                'title': title,
             },
             errors: {
                 422: `Validation Error`,
@@ -117,6 +113,31 @@ export class DefaultService {
             url: '/amazon/product-enhancements/{asin}',
             path: {
                 'asin': asin,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get Amazon Swot
+     * @param asin
+     * @param competitors
+     * @returns SwotAnalysisConsolidated Successful Response
+     * @throws ApiError
+     */
+    public static getAmazonSwotAmazonSwotConsolidatedAsinGet(
+        asin: string,
+        competitors: string,
+    ): CancelablePromise<SwotAnalysisConsolidated> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/amazon/swot-consolidated/{asin}',
+            path: {
+                'asin': asin,
+            },
+            query: {
+                'competitors': competitors,
             },
             errors: {
                 422: `Validation Error`,
