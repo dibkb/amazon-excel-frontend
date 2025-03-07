@@ -4,18 +4,15 @@ import api from "@/src/axios/base";
 import { useEffect } from "react";
 
 export const useFetchWebsiteReview = (asin: string) => {
-  const { setWebsiteReview, setLoadingWebsiteReview, product } = productStore();
+  const { setWebsiteReview, setLoadingWebsiteReview } = productStore();
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!product?.title) return;
-
       try {
         setLoadingWebsiteReview(true);
-        const encodedTitle = encodeURIComponent(product.title);
 
         const { data } = await api.get<Array<ReviewSchema>>(
-          `/amazon/product-sage/web-reviewer/${asin}?title=${encodedTitle}`
+          `/amazon/product-sage/web-reviewer/${asin}`
         );
 
         setWebsiteReview(data);
@@ -30,5 +27,5 @@ export const useFetchWebsiteReview = (asin: string) => {
     };
 
     fetchData();
-  }, [asin, setWebsiteReview, setLoadingWebsiteReview, product]);
+  }, [asin, setWebsiteReview, setLoadingWebsiteReview]);
 };

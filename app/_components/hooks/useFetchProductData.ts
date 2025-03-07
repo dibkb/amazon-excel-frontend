@@ -1,6 +1,5 @@
 import api from "@/src/axios/base";
-
-import { Product } from "@/src/api";
+import { Product } from "@/src/api/models/Product";
 import { useEffect } from "react";
 import { productStore } from "@/app/store/productStore";
 export const useFetchProductData = (asin: string) => {
