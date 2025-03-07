@@ -104,7 +104,17 @@ export default function AbTestPage({
 
   // Handle loading and error states
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center gap-2 justify-center h-full">
+        <Image
+          src="https://media.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif"
+          alt="Loading..."
+          width={20}
+          height={20}
+        />
+        <p className="text-stone-500 text-sm font-medium">Just a minute...</p>
+      </div>
+    );
   }
   if (error) {
     return <div>Error: {error.message}</div>;

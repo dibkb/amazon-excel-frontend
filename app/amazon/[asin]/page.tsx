@@ -1,5 +1,5 @@
 "use client";
-import { SessionProvider, useSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Product from "@/app/_components/amazon/tabs/product";
 import Sowt from "@/app/_components/amazon/tabs/swot";
@@ -13,6 +13,7 @@ import { productStore } from "@/app/store/productStore";
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 import { useFetchWebsiteReview } from "@/app/_components/hooks/useFetchWebsiteReview";
+import Dashboard from "@/app/_components/amazon/tabs/dashboard";
 // Create a wrapper component that uses session
 function AsinContent({ asin }: { asin: string }) {
   useFetchProductData(asin);
@@ -73,7 +74,7 @@ function AsinContent({ asin }: { asin: string }) {
         <AbTest />
       </TabsContent>
       <TabsContent value="dashboard">
-        <div>dashboard</div>
+        <Dashboard />
       </TabsContent>
     </Tabs>
   );

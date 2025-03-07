@@ -27,6 +27,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "serpapi.com",
       },
+      {
+        hostname: "img.icons8.com",
+      },
     ],
   },
 };

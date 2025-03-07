@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { getTest } from "@/db/query/test";
 import ThumbnailAccordion from "../accordion/thumbnail";
+import ArrowRight from "@/svg/arrow-right";
 
 const AbTest = () => {
   const { product, asin, productEnhancements } = productStore();
@@ -24,21 +25,21 @@ const AbTest = () => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [testid, setTestid] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     async function getTestData() {
+      setIsLoading(true);
       if (userId && asin) {
         const test = await getTest(userId, asin);
         if (test) {
           setTestid(test.id);
         }
       }
+      setIsLoading(false);
     }
-    setIsLoading(true);
     getTestData();
-    setIsLoading(false);
   }, [userId, asin]);
 
   async function publishBranchHandler() {
@@ -84,10 +85,53 @@ const AbTest = () => {
     </div>
   );
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex gap-2 items-center justify-start h-full">
+        <Image
+          src="https://media.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif"
+          alt="Loading..."
+          width={20}
+          height={20}
+        />
+        <p className="text-stone-500 text-sm font-medium">Loading...</p>
+      </div>
+    );
   }
   if (testid) {
-    return <div>Test ID: {testid}</div>;
+    return (
+      <div className="flex flex-col gap-2 my-4">
+        <p className="text-stone-500 font-medium">
+          You already created a test for this product
+        </p>
+        <Link
+          href={`/dashboard/${testid}`}
+          target="_blank"
+          className={cn(
+            "text-start text-stone-500 text-sm font-medium border rounded-md p-2 w-fit hover:border-stone-800 hover:bg-stone-100 transition-all duration-300",
+            geistMono.className
+          )}
+        >
+          <p>Test ID : {testid}</p>
+          <p>ASIN : {asin}</p>
+        </Link>
+        <div className="flex flex-col gap-2">
+          <p className="text-stone-500 text-sm font-medium">
+            Public test link :
+          </p>
+          <Link
+            href={`/ab-test/${testid}`}
+            target="_blank"
+            className={cn(
+              "text-start text-stone-500 text-sm font-medium flex items-center gap-2 hover:text-stone-800 transition-all duration-300 hover:underline",
+              geistMono.className
+            )}
+          >
+            <ArrowRight className="size-4 font-medium" />
+            {`${process.env.NEXT_PUBLIC_FRONTEND_URL}/ab-test/${testid}`}
+          </Link>
+        </div>
+      </div>
+    );
   }
   return (
     <div className="h-[calc(100vh-220px)] overflow-hidden">
