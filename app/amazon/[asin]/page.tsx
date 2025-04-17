@@ -35,6 +35,8 @@ function AsinContent({ asin }: { asin: string }) {
   if (!isClient) {
     return null;
   }
+  console.log(product);
+  console.log(loadingProduct);
   if (product && !loadingProduct) {
     return (
       <Tabs defaultValue="product" className="w-full mt-[60px]">

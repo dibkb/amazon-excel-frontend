@@ -25,6 +25,7 @@ export const useFetchProductData = (asin: string) => {
         setSelectedProducts([]);
         setSwot(null);
         setProductEnhancements(null);
+        setLoadingProduct(false);
       } catch (error) {
         setErrorProduct(error as string);
         setLoadingProduct(false);
