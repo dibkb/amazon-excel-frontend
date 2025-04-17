@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { cn } from "@/lib/utils";
 import { manrope, ptSerif } from "./fonts";
@@ -6,6 +7,12 @@ import { useState } from "react";
 import { validateAsin } from "@/utils/amazon/validateAsin";
 import Check from "@/svg/check";
 import { useRouter } from "next/navigation";
+import { displayData } from "@/src/data";
+import Image from "next/image";
+import { constructImageUrl } from "@/utils/amazon/construct-image-url";
+import { formatIndian } from "@/utils/amazon/format-number";
+import { MiniStars } from "./_components/amazon/stars/stars";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -102,6 +109,39 @@ export default function Home() {
           <p className="font-medium text-stone-600 text-sm">
             Top Picks at a Glance
           </p>
+          <div className="flex gap-4 mt-4">
+            {displayData.map((item) => (
+              <Link
+                key={item.asin}
+                href={`/amazon/${item.asin}`}
+                className="flex flex-col items-center justify-center gap-2 max-w-[200px] border border-stone-100 rounded-lg p-2 hover:border-stone-300 transition-all duration-300 cursor-pointer"
+              >
+                <Image
+                  src={constructImageUrl(item?.image ?? "")}
+                  alt={item?.title || "Product thumbnail"}
+                  width={100}
+                  height={100}
+                  className="min-w-[100px] min-h-[100px]"
+                />
+                <div
+                  className={`${manrope.className} text-stone-700 flex flex-col gap-2`}
+                >
+                  <h3 className="text-stone-800 font-bold text-sm line-clamp-2">
+                    {item?.title}
+                  </h3>
+                  <div className="flex items-center gap-1">
+                    <MiniStars rating={Number(item?.rating)} />
+                    <span className="text-xs text-cyan-800 font-semibold">
+                      {item?.review_count}
+                    </span>
+                  </div>
+                  <p className="text-amazon-red font-semibold text-xs">
+                    ₹{formatIndian(Number(item?.price))}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     </main>
