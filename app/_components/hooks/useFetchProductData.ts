@@ -22,7 +22,6 @@ export const useFetchProductData = (asin: string) => {
         };
         setAsin(asin);
         setProduct(data);
-        setLoadingProduct(false);
         setSelectedProducts([]);
         setSwot(null);
         setProductEnhancements(null);
