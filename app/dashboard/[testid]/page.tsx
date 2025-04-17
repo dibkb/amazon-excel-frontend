@@ -52,7 +52,7 @@ export default function DashboardPage({
           {test?.reviews.map((review) => (
             <Marker
               key={review.id}
-              width={40}
+              width={30}
               anchor={[Number(review.latitude), Number(review.longitude)]}
             >
               <Image
