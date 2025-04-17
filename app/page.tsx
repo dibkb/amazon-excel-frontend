@@ -110,9 +110,9 @@ export default function Home() {
             Top Picks at a Glance
           </p>
           <div className="flex gap-4 mt-4">
-            {displayData.map((item) => (
+            {displayData.map((item, id) => (
               <Link
-                key={item.asin}
+                key={id + item.asin}
                 href={`/amazon/${item.asin}`}
                 className="flex flex-col items-center justify-center gap-2 max-w-[200px] border border-stone-100 rounded-lg p-2 hover:border-stone-300 transition-all duration-300 cursor-pointer"
               >

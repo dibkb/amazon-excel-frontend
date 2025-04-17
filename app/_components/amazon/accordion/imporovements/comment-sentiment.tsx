@@ -45,8 +45,8 @@ const CommentSentiment = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {improvements?.sentiments.map((sentiment) => (
-          <TableRow key={sentiment.features}>
+        {improvements?.sentiments.map((sentiment, id) => (
+          <TableRow key={id + sentiment.features}>
             <TableCell className="font-medium">
               {sentiment.key_aspects}
             </TableCell>

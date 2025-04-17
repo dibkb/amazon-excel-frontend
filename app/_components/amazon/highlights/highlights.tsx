@@ -19,8 +19,8 @@ const ProductHighlights = ({ product }: { product: Product }) => {
   if (!isClient) {
     return null;
   }
-  const content = product?.description?.highlights?.map((highlight) => (
-    <li key={highlight} className="flex items-start gap-2">
+  const content = product?.description?.highlights?.map((highlight, id) => (
+    <li key={id + highlight} className="flex items-start gap-2">
       <ChevronRightSvg />
       <span>{highlight}</span>
     </li>

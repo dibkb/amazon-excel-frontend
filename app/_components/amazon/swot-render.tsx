@@ -40,8 +40,8 @@ export const SwotRender = ({
           >
             S<small className="text-stone-700">trengths</small>
           </p>
-          {strengths.map((strength) => (
-            <ul key={strength.heading} className="flex flex-col gap-2">
+          {strengths.map((strength, id) => (
+            <ul key={id + strength.heading} className="flex flex-col gap-2">
               <li className="text-lg font-semibold list-disc">
                 {strength.heading}
               </li>
@@ -60,8 +60,8 @@ export const SwotRender = ({
           >
             W<small className="text-stone-700">eaknesses</small>
           </p>
-          {weaknesses.map((weakness) => (
-            <ul key={weakness.heading} className="flex flex-col gap-2">
+          {weaknesses.map((weakness, id) => (
+            <ul key={id + weakness.heading} className="flex flex-col gap-2">
               <li className="text-lg font-semibold list-disc">
                 {weakness.heading}
               </li>
@@ -80,8 +80,8 @@ export const SwotRender = ({
           >
             O<small className="text-stone-700">pportunities</small>
           </p>
-          {opportunities.map((opportunity) => (
-            <ul key={opportunity.heading} className="flex flex-col gap-2">
+          {opportunities.map((opportunity, id) => (
+            <ul key={id + opportunity.heading} className="flex flex-col gap-2">
               <li className="text-lg font-semibold list-disc">
                 {opportunity.heading}
               </li>
@@ -100,8 +100,8 @@ export const SwotRender = ({
           >
             T<small className="text-stone-700">hreats</small>
           </p>
-          {threats.map((threat) => (
-            <ul key={threat.heading} className="flex flex-col gap-2">
+          {threats.map((threat, id) => (
+            <ul key={id + threat.heading} className="flex flex-col gap-2">
               <li className="text-lg font-semibold list-disc">
                 {threat.heading}
               </li>

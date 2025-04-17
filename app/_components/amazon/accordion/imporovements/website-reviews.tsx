@@ -28,10 +28,10 @@ const WebsiteReviews = () => {
   );
   const content = (
     <div className="flex flex-col gap-4">
-      {websiteReview?.map((reviews) => {
+      {websiteReview?.map((reviews, id) => {
         return (
           <main
-            key={reviews.source}
+            key={id + reviews.source}
             className="flex flex-col gap-4 border-b py-4"
           >
             <div>
@@ -39,8 +39,8 @@ const WebsiteReviews = () => {
                 ✅ Positive Points
               </p>
               <ul className="list-disc list-inside text-sm flex flex-col gap-2 mt-4 font-medium">
-                {reviews.review.positive_points.map((point) => (
-                  <li key={point}>{point}</li>
+                {reviews.review.positive_points.map((point, id) => (
+                  <li key={id + point}>{point}</li>
                 ))}
               </ul>
             </div>
@@ -49,8 +49,8 @@ const WebsiteReviews = () => {
                 ❌ Negative Points
               </p>
               <ul className="list-disc list-inside text-sm flex flex-col gap-2 mt-4 font-medium">
-                {reviews.review.negative_points.map((point) => (
-                  <li key={point}>{point}</li>
+                {reviews.review.negative_points.map((point, id) => (
+                  <li key={id + point}>{point}</li>
                 ))}
               </ul>
             </div>
@@ -59,8 +59,8 @@ const WebsiteReviews = () => {
                 💡 Suggested Improvements
               </p>
               <ul className="list-disc list-inside text-sm flex flex-col gap-2 mt-4 font-medium">
-                {reviews.review.suggested_improvements.map((point) => (
-                  <li key={point}>{point}</li>
+                {reviews.review.suggested_improvements.map((point, id) => (
+                  <li key={id + point}>{point}</li>
                 ))}
               </ul>
             </div>

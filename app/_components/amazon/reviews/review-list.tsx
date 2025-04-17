@@ -8,9 +8,9 @@ const ReviewsList = ({
 }: {
   reviews: AmazonProductResponse["product"]["reviews"];
 }) => {
-  const reviewContent = reviews?.map((review) => {
+  const reviewContent = reviews?.map((review, id) => {
     return (
-      <main key={review} className="flex flex-col gap-3">
+      <main key={id + review} className="flex flex-col gap-3">
         <span className="flex items-center gap-2">
           <Avatar>
             <AvatarImage

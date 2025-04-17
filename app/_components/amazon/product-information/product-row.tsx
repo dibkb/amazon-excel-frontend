@@ -11,9 +11,9 @@ const ProductRow = ({ row, value }: { row: string; value: string }) => {
         {value
           .split("#")
           .slice(1)
-          .map((ele) => {
+          .map((ele, id) => {
             return (
-              <p key={ele} className="font-semibold text-blue-700">
+              <p key={id + ele} className="font-semibold text-blue-700">
                 #{ele}
               </p>
             );

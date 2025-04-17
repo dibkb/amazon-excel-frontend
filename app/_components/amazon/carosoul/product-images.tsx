@@ -11,9 +11,9 @@ const ProductImages = ({ images }: ProductImages) => {
   return (
     <div className="flex items-center gap-3">
       <div className="flex flex-col gap-2">
-        {images?.map((img) => (
+        {images?.map((img, id) => (
           <span
-            key={img}
+            key={id + img}
             onClick={() => setThumbnail(img)}
             style={{
               width: "40px",

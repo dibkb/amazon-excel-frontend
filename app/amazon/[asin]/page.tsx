@@ -24,7 +24,7 @@ function AsinContent({ asin }: { asin: string }) {
 
   // useMakeSocket();
 
-  const { loadingProduct } = productStore();
+  const { loadingProduct, product } = productStore();
 
   // const { data: session } = useSession();
   const [isClient, setIsClient] = useState(false);
@@ -35,7 +35,43 @@ function AsinContent({ asin }: { asin: string }) {
   if (!isClient) {
     return null;
   }
-  if (loadingProduct) {
+  if (product && !loadingProduct) {
+    return (
+      <Tabs defaultValue="product" className="w-full mt-[60px]">
+        <TabsList className="grid w-[900px] grid-cols-5 mx-auto sticky z-10">
+          <TabsTrigger value="product">📄 Product Details</TabsTrigger>
+          <TabsTrigger value="improvements">
+            <span className="flex items-center gap-2">🤖 Improvements</span>
+          </TabsTrigger>
+          <TabsTrigger value="swot">
+            <span className="flex items-center gap-2">🚀 SWOT</span>
+          </TabsTrigger>
+          <TabsTrigger value="ab-test">
+            <span className="flex items-center gap-2">🧪 AB Test</span>
+          </TabsTrigger>
+          <TabsTrigger value="dashboard">
+            <span className="flex items-center gap-2">🌐 Dashboard</span>
+          </TabsTrigger>
+        </TabsList>
+        {/* Content */}
+        <TabsContent value="product">
+          <Product />
+        </TabsContent>
+        <TabsContent value="improvements">
+          <Improvements />
+        </TabsContent>
+        <TabsContent value="swot">
+          <Sowt />
+        </TabsContent>
+        <TabsContent value="ab-test">
+          <AbTest />
+        </TabsContent>
+        <TabsContent value="dashboard">
+          <Dashboard />
+        </TabsContent>
+      </Tabs>
+    );
+  } else {
     return (
       <div className="flex flex-col gap-8 mt-[60px]">
         <Skeleton className="h-[300px]" />
@@ -43,41 +79,6 @@ function AsinContent({ asin }: { asin: string }) {
       </div>
     );
   }
-  return (
-    <Tabs defaultValue="product" className="w-full mt-[60px]">
-      <TabsList className="grid w-[900px] grid-cols-5 mx-auto sticky z-10">
-        <TabsTrigger value="product">📄 Product Details</TabsTrigger>
-        <TabsTrigger value="improvements">
-          <span className="flex items-center gap-2">🤖 Improvements</span>
-        </TabsTrigger>
-        <TabsTrigger value="swot">
-          <span className="flex items-center gap-2">🚀 SWOT</span>
-        </TabsTrigger>
-        <TabsTrigger value="ab-test">
-          <span className="flex items-center gap-2">🧪 AB Test</span>
-        </TabsTrigger>
-        <TabsTrigger value="dashboard">
-          <span className="flex items-center gap-2">🌐 Dashboard</span>
-        </TabsTrigger>
-      </TabsList>
-      {/* Content */}
-      <TabsContent value="product">
-        <Product />
-      </TabsContent>
-      <TabsContent value="improvements">
-        <Improvements />
-      </TabsContent>
-      <TabsContent value="swot">
-        <Sowt />
-      </TabsContent>
-      <TabsContent value="ab-test">
-        <AbTest />
-      </TabsContent>
-      <TabsContent value="dashboard">
-        <Dashboard />
-      </TabsContent>
-    </Tabs>
-  );
 }
 
 // Main component that provides the session

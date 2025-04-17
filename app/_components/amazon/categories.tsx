@@ -18,8 +18,11 @@ const Categories = ({ categories }: CategoriesProps) => {
   return (
     <Breadcrumb className="text-xs font-semibold">
       <BreadcrumbList>
-        {categories?.slice(0, -1)?.map((category) => (
-          <span key={category} className="flex items-center gap-1">
+        {categories?.slice(0, -1)?.map((category, id) => (
+          <span
+            key={(id + category).toString()}
+            className="flex items-center gap-1"
+          >
             <BreadcrumbItem className="text-xs font-semibold">
               <BreadcrumbLink>{category}</BreadcrumbLink>
             </BreadcrumbItem>

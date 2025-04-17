@@ -80,8 +80,8 @@ export default function DashboardPage({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {test?.reviews.map((review) => (
-              <TableRow key={review.id}>
+            {test?.reviews.map((review, id) => (
+              <TableRow key={review.id + id}>
                 <TableCell className="font-medium">
                   {review.name || "-"}
                 </TableCell>

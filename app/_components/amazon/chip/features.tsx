@@ -8,9 +8,9 @@ const Features = ({ features }: { features: string }) => {
   if (featuresArray.length === 1 && featuresArray[0] === "") return null;
   return (
     <div className="flex flex-wrap gap-2">
-      {featuresArray.map((feature) => (
+      {featuresArray.map((feature, id) => (
         <Badge
-          key={feature}
+          key={id + feature}
           variant="secondary"
           className="px-2 py-1 lowercase"
         >

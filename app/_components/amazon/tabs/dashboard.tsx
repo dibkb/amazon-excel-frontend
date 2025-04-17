@@ -43,10 +43,10 @@ const Dashboard = () => {
         🧪 Your tests are listed below
       </p>
       <div className="grid grid-cols-2 gap-4">
-        {tests?.map((test) => (
+        {tests?.map((test, id) => (
           <Link
             href={`/dashboard/${test.id}`}
-            key={test.id}
+            key={test.id + id}
             target="_blank"
             className={cn(
               "flex flex-col gap-2 p-4 rounded-xl",
