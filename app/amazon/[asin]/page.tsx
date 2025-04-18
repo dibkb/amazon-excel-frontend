@@ -6,19 +6,15 @@ import Sowt from "@/app/_components/amazon/tabs/swot";
 import Improvements from "@/app/_components/amazon/tabs/improvements";
 import { use, useEffect, useState } from "react";
 import { useFetchProductData } from "@/app/_components/hooks/useFetchProductData";
-import { useFetchImprovements } from "@/app/_components/hooks/useFetchImprvements";
 // import { useMakeSocket } from "@/app/_components/hooks/useMakeSocket";
 import AbTest from "@/app/_components/amazon/tabs/ab-test";
 import { productStore } from "@/app/store/productStore";
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
-import { useFetchWebsiteReview } from "@/app/_components/hooks/useFetchWebsiteReview";
 import Dashboard from "@/app/_components/amazon/tabs/dashboard";
 // Create a wrapper component that uses session
 function AsinContent({ asin }: { asin: string }) {
   useFetchProductData(asin);
-  useFetchImprovements(asin);
-  useFetchWebsiteReview(asin);
 
   // Hooks that need session
 
@@ -35,8 +31,6 @@ function AsinContent({ asin }: { asin: string }) {
   if (!isClient) {
     return null;
   }
-  console.log(product);
-  console.log(loadingProduct);
   if (product && !loadingProduct) {
     return (
       <Tabs defaultValue="product" className="w-full mt-[60px]">
@@ -60,7 +54,7 @@ function AsinContent({ asin }: { asin: string }) {
           <Product />
         </TabsContent>
         <TabsContent value="improvements">
-          <Improvements />
+          <Improvements asin={asin} />
         </TabsContent>
         <TabsContent value="swot">
           <Sowt />

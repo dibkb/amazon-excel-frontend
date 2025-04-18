@@ -15,6 +15,7 @@ export const useFetchProductData = (asin: string) => {
   useEffect(() => {
     const fetchData = async () => {
       setLoadingProduct(true);
+      setProduct(null);
       setErrorProduct(null);
       try {
         const { data } = (await api.get(`/amazon/${asin}`)) as {

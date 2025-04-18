@@ -20,7 +20,7 @@ export interface ProductEnhancements extends Product {
 }
 interface ProductStore {
   product: Product | null;
-  setProduct: (product: Product) => void;
+  setProduct: (product: Product | null) => void;
 
   loadingProduct: boolean;
   setLoadingProduct: (loading: boolean) => void;
@@ -54,7 +54,7 @@ export const productStore = create<ProductStore>()(
   persist(
     (set) => ({
       product: null,
-      setProduct: (product: Product) => set({ product }),
+      setProduct: (product: Product | null) => set({ product }),
 
       loadingProduct: true,
       setLoadingProduct: (loading: boolean) => set({ loadingProduct: loading }),
