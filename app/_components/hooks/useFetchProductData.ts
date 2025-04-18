@@ -18,17 +18,23 @@ export const useFetchProductData = (asin: string) => {
       setProduct(null);
       setErrorProduct(null);
       try {
-        const { data } = (await api.get(`/amazon/${asin}`)) as {
-          data: Product;
-        };
-        setAsin(asin);
-        setProduct(data);
-        setSelectedProducts([]);
-        setSwot(null);
-        setProductEnhancements(null);
-        setLoadingProduct(false);
+        const response = await api.get(`/amazon/${asin}`);
+        if (response.status === 200) {
+          setAsin(asin);
+          setProduct(response.data as Product);
+          setSelectedProducts([]);
+          setSwot(null);
+          setProductEnhancements(null);
+          setLoadingProduct(false);
+        } else {
+          setErrorProduct(response.data.message as string);
+          console.log(response.data.message);
+          setLoadingProduct(false);
+        }
       } catch (error) {
-        setErrorProduct(error as string);
+        const errorMessage =
+          error instanceof Error ? error.message : String(error);
+        setErrorProduct(errorMessage);
         setLoadingProduct(false);
       }
     };

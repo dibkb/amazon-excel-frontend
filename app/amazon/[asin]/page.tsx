@@ -12,15 +12,19 @@ import { productStore } from "@/app/store/productStore";
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 import Dashboard from "@/app/_components/amazon/tabs/dashboard";
+import { AlertDialog } from "@/app/_components/layout/alert";
+import { useRouter } from "next/navigation";
 // Create a wrapper component that uses session
 function AsinContent({ asin }: { asin: string }) {
+  const router = useRouter();
   useFetchProductData(asin);
 
   // Hooks that need session
 
   // useMakeSocket();
 
-  const { loadingProduct, product } = productStore();
+  const { loadingProduct, product, errorProduct, setErrorProduct } =
+    productStore();
 
   // const { data: session } = useSession();
   const [isClient, setIsClient] = useState(false);
@@ -30,6 +34,15 @@ function AsinContent({ asin }: { asin: string }) {
   }, []);
   if (!isClient) {
     return null;
+  }
+  const handleClose = () => {
+    setErrorProduct(null);
+    router.push("/");
+  };
+  if (errorProduct) {
+    return (
+      <AlertDialog message={errorProduct} asin={asin} onClose={handleClose} />
+    );
   }
   if (product && !loadingProduct) {
     return (
