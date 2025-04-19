@@ -144,6 +144,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Link
+        href="/products"
+        className="text-sm text-stone-700 font-semibold hover:text-stone-900 transition-all duration-300 mt-4 text-center hover:underline"
+      >
+        See more
+      </Link>
     </main>
   );
 }

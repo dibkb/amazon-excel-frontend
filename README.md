@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Conduit Project Setup
 
-## Getting Started
+## Frontend Setup
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (16.x or higher recommended)
+- PNPM package manager
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation Steps
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Install PNPM** (if not already installed)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install -g pnpm
+   ```
 
-## Learn More
+2. **Clone the repository and navigate to the frontend directory**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   cd amazon_excel
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Install dependencies**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   pnpm install
+   ```
 
-## Deploy on Vercel
+4. **Set up environment variables**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   # Copy the example environment file
+   cp .env.example .env
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   # Edit the .env file and fill in the required values:
+   # - AUTH_SECRET: Generate a secure random string
+   # - NEXT_PUBLIC_DATABASE_URL: Your database connection URL
+   # - NEXT_PUBLIC_IPINFO_TOKEN: Token for IP info service
+   # - NEXT_PUBLIC_FRONTEND_URL: URL where frontend is hosted (localhost:3000 for development)
+   # - NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: Access token for Mapbox
+   # - NEXT_PUBLIC_MAPTILER_API_KEY: API key for MapTiler
+   # - NEXT_PUBLIC_BACKEND_URL: URL for the backend (http://localhost:8000 for local development)
+   ```
+
+5. **Start the development server**
+
+   ```bash
+   pnpm dev
+   ```
+
+   The frontend will be available at http://localhost:3000
+
+## Backend Setup
+
+Go to the backend repo and set it up locally
+
+## GitHub Repository
+
+Backend repo:
+[https://github.com/dibkb/excel-backend](https://github.com/dibkb/excel-backend)
