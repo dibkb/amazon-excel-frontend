@@ -144,6 +144,7 @@ const Homepage = () => {
               className="min-w-[100px] min-h-[100px]"
               loading="lazy"
               onError={(e) => {
+                // Simple fallback for image loading errors
                 (e.target as HTMLImageElement).src = "/placeholder-image.png";
               }}
             />

@@ -47,7 +47,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-start h-[calc(100vh-60px)] pt-[20vh]">
+    <main className="flex flex-col items-center justify-start h-[calc(100vh-60px)] pt-[10vh]">
       <section className="flex flex-col items-center justify-center gap-9 w-full max-w-[900px] px-4">
         <h1 className={`${ptSerif.className} font-serif text-6xl text-center`}>
           Amplify Your Amazon Edge
@@ -61,6 +61,7 @@ export default function Home() {
           Leverage data-driven product analysis, competitor SWOT insights, and
           A/B testing to refine your listings and boost conversions.
         </p>
+
         <form
           className="flex flex-col items-center justify-center gap-2 w-full max-w-[700px] mt-20 relative"
           onSubmit={(e) => {
@@ -105,7 +106,35 @@ export default function Home() {
             </button>
           </div>
         </form>
-        <div className="mt-12">
+
+        <div className="w-full max-w-[700px] bg-amber-50 border border-amber-200 rounded-lg p-4 flex flex-col items-center gap-3">
+          <div className="flex items-center gap-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6 text-amber-500"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <p className="text-amber-800 text-sm font-medium">
+              Search not working on production as scraping is blocked by Amazon.
+              Go to the products page to see the already scraped products.
+            </p>
+          </div>
+          <Link
+            href="/products"
+            className="text-sm text-stone-700 font-semibold hover:text-stone-900 transition-all duration-300 text-center hover:underline"
+          >
+            All Products
+          </Link>
+        </div>
+
+        <div className="mt-3">
           <p className="font-medium text-stone-600 text-sm">
             Top Picks at a Glance
           </p>
