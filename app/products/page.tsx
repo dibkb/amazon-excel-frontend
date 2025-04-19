@@ -94,12 +94,12 @@ const Homepage = () => {
         </div>
       )}
 
-      {!loading && !error && products.length === 0 && (
+      {!loading && products.length === 0 && (
         <div className="w-full flex flex-col items-center justify-center py-8">
           <p className="text-stone-700 mb-4">No products found</p>
           <button
             onClick={() => setRetries((prev) => prev + 1)}
-            className="bg-amazon-blue hover:bg-amazon-blue/90 text-white font-semibold py-2 px-4 rounded"
+            className="bg-stone-700 hover:bg-stone-900 text-stone-100 font-semibold py-2 px-4 rounded text-sm"
           >
             Reload Products
           </button>
