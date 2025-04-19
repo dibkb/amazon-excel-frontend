@@ -23,22 +23,6 @@ const Homepage = () => {
 
   useEffect(() => {
     // Setup cache checking
-    const cachedData = localStorage.getItem("cachedProducts");
-    const cacheTimestamp = localStorage.getItem("productsCacheTimestamp");
-    const now = Date.now();
-    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-
-    // Use cached data if available and not expired
-    if (
-      cachedData &&
-      cacheTimestamp &&
-      now - parseInt(cacheTimestamp) < CACHE_DURATION
-    ) {
-      setProducts(JSON.parse(cachedData));
-      setLoading(false);
-      return;
-    }
-
     const fetchProducts = async () => {
       try {
         setLoading(true);
@@ -50,10 +34,6 @@ const Homepage = () => {
         if (response.status !== 200) {
           throw new Error(data.message || "Failed to fetch products");
         }
-
-        // Cache the results
-        localStorage.setItem("cachedProducts", JSON.stringify(data));
-        localStorage.setItem("productsCacheTimestamp", now.toString());
 
         setProducts(data);
         setError(null);
@@ -67,25 +47,10 @@ const Homepage = () => {
           errorMessage = axiosError.message || errorMessage;
         } else if (err instanceof Error) {
           errorMessage = err.message;
-        }
-
-        // Check if we have cached data to show as fallback
-        if (cachedData) {
-          setProducts(JSON.parse(cachedData));
-          setError("Showing cached data. Could not refresh from server.");
-        } else {
           setError(errorMessage);
         }
 
         setLoading(false);
-
-        // Retry logic (max 3 retries with exponential backoff)
-        if (retries < 3) {
-          const backoffTime = Math.pow(2, retries) * 1000;
-          setTimeout(() => {
-            setRetries((prev) => prev + 1);
-          }, backoffTime);
-        }
       }
     };
 
@@ -143,10 +108,6 @@ const Homepage = () => {
               height={100}
               className="min-w-[100px] min-h-[100px]"
               loading="lazy"
-              onError={(e) => {
-                // Simple fallback for image loading errors
-                (e.target as HTMLImageElement).src = "/placeholder-image.png";
-              }}
             />
             <div
               className={`${manrope.className} text-stone-700 flex flex-col gap-2`}
