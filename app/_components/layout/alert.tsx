@@ -7,8 +7,8 @@ export function AlertDialog({
   asin,
 }: {
   onClose: () => void;
-  message: string;
   asin: string;
+  message: string;
 }) {
   return (
     <>
@@ -39,6 +39,9 @@ export function AlertDialog({
               <p className="mt-2 text-sm text-muted-foreground font-semibold">
                 There was a problem fetching the product. Please try again later
                 or try a new product
+                <br />
+                <br />
+                {message}
               </p>
             </>
 
